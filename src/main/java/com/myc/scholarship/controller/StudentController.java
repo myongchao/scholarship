@@ -37,7 +37,7 @@ public class StudentController implements Serializable {
     @Autowired
     private StudentMapper studentMapper;
 
-    @ApiOperation(value = "创建",notes = "创建")
+    @ApiOperation(value = "创建",notes = "创建学生信息")
     @PostMapping(value = "/create")
     @ResponseBody
     public Student create(@RequestBody Student student){
