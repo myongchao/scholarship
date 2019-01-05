@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-exports.__esModule = true;
+exports.__esModule = true
 exports.default = {
   el: {
     colorpicker: {
@@ -109,4 +109,4 @@ exports.default = {
       hasCheckedFormat: '{checked}/{total} checked' // to be translated
     }
   }
-};
+}

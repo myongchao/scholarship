@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-exports.__esModule = true;
+exports.__esModule = true
 exports.default = {
   route: {
     dashboard: '首页',
@@ -113,4 +113,4 @@ exports.default = {
       hasCheckedFormat: '{checked}/{total} checked' // to be translated
     }
   }
-};
+}

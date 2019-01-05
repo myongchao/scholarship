@@ -84,7 +84,7 @@ export const constantRouterMap = [
         name: 'ApplyCount',
         component: () => import('@/views/application/applyCount'),
         meta: { title: '申请信息统计', icon: 'form' }
-      },
+      }
     ]
   },
 
@@ -106,7 +106,7 @@ export const constantRouterMap = [
       component: () => import('@/views/personal/resetPwd'),
       meta: { title: '密码管理', icon: 'form' }
     }
-  ]
+    ]
   },
 
   {
