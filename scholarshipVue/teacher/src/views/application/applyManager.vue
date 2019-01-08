@@ -9,7 +9,7 @@
       <el-table-column prop="address" align="center" label="地址" width="120"/>
       <el-table-column prop="date" align="center" label="日期" width="140"/>
       <el-table-column prop="state" align="center" label="状态" width="140">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-input v-show="scope.row.edit" v-model="scope.row.state" size="small"/>
           <span v-show="!scope.row.edit">{{ scope.row.state }}</span>
         </template>
@@ -22,21 +22,22 @@
           <el-row>
             <el-button v-show="!scope.row.edit" type="primary" size="small" icon="edit" @click="scope.row.edit=true">编辑</el-button>
             <el-button v-show="scope.row.edit" type="success" size="small" icon="check" @click="scope.row.edit=false">完成</el-button>
-            <el-button type="primary" icon="el-icon-edit" @click="editProfession(scope.row.id)"/>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteProfession(scope.$index)"/>
+            <!-- <el-button type="primary" icon="el-icon-edit" @click="editProfession(scope.row.id)"/>
+            <el-button type="danger" icon="el-icon-delete" @click="deleteProfession(scope.$index)"/> -->
           </el-row>
         </template>
       </el-table-column>
     </el-table>
-    <page :page="form.page" @changed="getList"/>
+    <!-- <page :page="form.page" @changed="getList"/> -->
   </div>
 </template>
 
 <script>
-import page from '@/components/page'
+// import page from '@/components/page'
+import { recordList } from '@/api/record'
 export default {
   components: {
-    page
+    // page
   },
   data() {
     // const item = {
@@ -167,7 +168,12 @@ export default {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     },
     getList() {
-      this.tableData1 = this.tableData
+      recordList().then(e => {
+        this.tableData1 = e.data.data
+        console.log(this.tableData1)
+      })
+      // this.tableData1 = this.tableData
+      // console.log(this.tableData1)
     }
   }
 

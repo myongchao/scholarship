@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myc.scholarship.mapper.RecordMapper">
+
+    <!-- 开启二级缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Record">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="num" property="num" />
+        <result column="awardId" property="awardId" />
+        <result column="insertTime" property="insertTime" />
+        <result column="check1" property="check1" />
+        <result column="check2" property="check2" />
+    </resultMap>
+
+</mapper>

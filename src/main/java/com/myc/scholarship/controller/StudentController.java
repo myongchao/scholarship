@@ -1,11 +1,9 @@
 package com.myc.scholarship.controller;
 
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.PageDto;
 import com.myc.scholarship.entity.Student;
-import com.myc.scholarship.mapper.StudentMapper;
 import com.myc.scholarship.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,8 +21,7 @@ import java.util.List;
 * @author 马勇超
 * @date 2018/11/30 12:25
 * @version 1.0 
-*/ 
- 
+*/
 @RestController
 @RequestMapping("/student")
 @Api(description = "测试模块", value = "测试模块")
@@ -34,15 +31,12 @@ public class StudentController implements Serializable {
     @Autowired
     private StudentService studentService;
 
-    @Autowired
-    private StudentMapper studentMapper;
-
     @ApiOperation(value = "创建",notes = "创建")
     @PostMapping(value = "/create")
     @ResponseBody
     public Student create(@RequestBody Student student){
 
-        studentMapper.insert(student);
+        studentService.insert(student);
         return student;
     }
 
@@ -50,21 +44,21 @@ public class StudentController implements Serializable {
     @DeleteMapping(value = "/del/{id}")
     @ResponseBody
     public void delete(@RequestBody Long id){
-        studentMapper.deleteById(id);
+        studentService.deleteById(id);
     }
 
     @ApiOperation(value = "修改",notes = "修改")
     @PutMapping(value = "/edit")
     @ResponseBody
     public Student update(@RequestBody Student student){
-        studentMapper.updateById(student);
+        studentService.updateById(student);
         return student;
     }
 
     @ApiOperation(value = "获取",notes = "获取")
     @GetMapping(value = "/list")
     public List<Student> getAll(){
-        List<Student> students = studentMapper.selectList(new EntityWrapper<Student>());
+        List<Student> students = studentService.selectList(new EntityWrapper<Student>());
         return students;
     }
 
