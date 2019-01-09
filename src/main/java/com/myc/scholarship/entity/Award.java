@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @TableName("award")
-public class Award extends FullAuditedEntity<Student,Long> implements Serializable {
+public class Award extends FullAuditedEntity<Award,Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

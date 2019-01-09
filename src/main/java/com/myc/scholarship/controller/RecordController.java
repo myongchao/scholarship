@@ -9,10 +9,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -40,8 +40,10 @@ public class RecordController implements Serializable {
     @ApiOperation(value = "申请信息列表")
     @GetMapping(value = "/list")
     @ResponseBody
-    public List<Record> list(){
+    public Map<String,List<Record>> list(){
+        Map<String,List<Record>> map = new HashMap<>();
         List<Record> records = recordService.selectList(new EntityWrapper<Record>());
-        return records;
+        map.put("data",records);
+        return map;
     }
 }

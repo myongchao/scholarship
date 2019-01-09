@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <el-table :data="tableData1">
+    <el-table v-for="(item,index) in tableData1" :key="index">
       <el-table-column :index="indexMethod" type="index" align="center" width="140"/>
       <el-table-column prop="level" align="center" label="奖学金级别" width="140"/>
       <el-table-column prop="score" align="center" label="成绩" width="120"/>
@@ -8,7 +8,7 @@
       <el-table-column prop="name" align="center" label="姓名" width="120"/>
       <el-table-column prop="address" align="center" label="地址" width="120"/>
       <el-table-column prop="date" align="center" label="日期" width="140"/>
-      <el-table-column prop="state" align="center" label="状态" width="140">
+      <el-table-column prop="item.check1" align="center" label="状态" width="140">
         <template slot-scope="scope">
           <el-input v-show="scope.row.edit" v-model="scope.row.state" size="small"/>
           <span v-show="!scope.row.edit">{{ scope.row.state }}</span>
@@ -40,15 +40,6 @@ export default {
     // page
   },
   data() {
-    // const item = {
-    //   level: '一等奖学金',
-    //   score: '600',
-    //   credit: '24',
-    //   date: '2018-11-24',
-    //   name: 'myc',
-    //   address: '郑州师范学院',
-    //   state: '未审核'
-    // }
     return {
       // 分页和模糊查询
       form: {
@@ -168,12 +159,15 @@ export default {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     },
     getList() {
-      recordList().then(e => {
-        this.tableData1 = e.data.data
-        console.log(this.tableData1)
+      return new Promise((resolve, reject) => {
+        recordList().then(response => {
+          const data = response.data
+          this.tableData1 = data
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
       })
-      // this.tableData1 = this.tableData
-      // console.log(this.tableData1)
     }
   }
 
