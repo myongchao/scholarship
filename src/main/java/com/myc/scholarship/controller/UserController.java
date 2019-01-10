@@ -3,6 +3,7 @@ package com.myc.scholarship.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.myc.scholarship.entity.User;
+import com.myc.scholarship.entity.token.LogOut;
 import com.myc.scholarship.entity.token.TokenData;
 import com.myc.scholarship.entity.token.UserInfoToken;
 import com.myc.scholarship.entity.token.ReturnToken;
@@ -48,7 +49,7 @@ public class UserController implements Serializable {
         if(success){
             Map<String,String> list = new HashMap<>();
             userInfoToken.setCode(20000);
-            list.put("token","admin");
+            list.put("token",num);
             userInfoToken.setData(list);
         }
         return userInfoToken;
@@ -65,25 +66,28 @@ public class UserController implements Serializable {
         list.add(user);
         tokenData.setRoles(list);
         tokenData.setName(user);
-        tokenData.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        tokenData.setAvatar("http://img.mp.itc.cn/upload/20161221/ed4582188d324eca9811ded71c94808a_th.jpeg");
         returnToken.setData(tokenData);
         return returnToken;
     }
 
     @ApiOperation(value = "登出")
     @PostMapping(value = "/logout")
-    public UserInfoToken logOut(@RequestParam("token")String user){
+    public LogOut logOut(){
 //        Boolean success = false;
 //        if (user != null){
 //            success = true;
 //        }
 //        return REDIRECT + "/user/login";
-        UserInfoToken userInfoToken = new UserInfoToken();
-        Map<String,String> map = new HashMap<>();
-        // userInfoToken.setCode();
-        map.put("token","");
-        userInfoToken.setData(map);
-        return userInfoToken;
+//        UserInfoToken userInfoToken = new UserInfoToken();
+//        Map<String,String> map = new HashMap<>();
+//        // userInfoToken.setCode();
+//        map.put("token","");
+//        userInfoToken.setData(map);
+        LogOut logOut = new LogOut();
+        logOut.setCode(20000);
+        logOut.setData("success");
+        return logOut;
     }
 }
 

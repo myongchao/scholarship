@@ -12,7 +12,7 @@
         <el-button slot="append" type="primary" icon="el-icon-search" style="height: 75%;" >搜索</el-button>
       </template>
     </div>
-    <div class="wrap">
+    <div class="select">
       <el-table :data="tableData">
         <el-table-column :index="indexMethod" type="index" align="center" width="160"/>
         <el-table-column prop="level" align="center" label="奖学金级别" width="160"/>
@@ -89,7 +89,7 @@ export default {
   .components-container{
     margin-left: 10px;
   }
-  .wrap{
+  .select{
        border: 1px solid seashell;
        margin: 10px;
        text-align: center;

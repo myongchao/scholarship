@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="manager">
     <el-table v-for="(item,index) in tableData1" :key="index">
       <el-table-column :index="indexMethod" type="index" align="center" width="140"/>
       <el-table-column prop="level" align="center" label="奖学金级别" width="140"/>
@@ -37,7 +37,7 @@
 import { recordList } from '@/api/record'
 export default {
   components: {
-    // page
+  //  page
   },
   data() {
     return {
@@ -159,15 +159,27 @@ export default {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     },
     getList() {
-      return new Promise((resolve, reject) => {
-        recordList().then(response => {
-          const data = response.data
-          this.tableData1 = data
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+      this.tableData1 = this.ta
+      // new Promise(function(resolve, reject) {
+      //   recordList().then(e => {
+      //     debugger
+      //   //  this.tableData1 = e.data
+      //   })
+      //   // reject('该prormise已被拒绝')
+      // }).catch(function(reason) {
+      //   console.log('catch:', reason)
+      // })
+      // debugger
+      recordList().then(response => {
+        const data = response.data
+        this.tableData1 = data
       })
+      // recordList().then(response => {
+      //   const data = response.data
+      //   this.tableData1 = data
+      // }).catch(error => {
+      //   throw new Error(error)
+      // })
     }
   }
 
@@ -175,7 +187,7 @@ export default {
 </script>
 
 <style>
-    .wrap{
+    .manager{
        border: 1px solid seashell;
        margin: 15px;
        text-align: center

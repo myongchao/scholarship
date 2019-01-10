@@ -1,6 +1,6 @@
 <template>
-  <div class="wrap">
-    <el-form ref="ruleForm2" :model="ruleForm2" :rules="rules2" status-icon label-width="100px" class="demo-ruleForm">
+  <div class="pwd">
+    <el-form v-loading="loading" ref="ruleForm2" :model="ruleForm2" :rules="rules2" status-icon label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="username">
         <el-input v-model.number="ruleForm2.username" placeholder="myc"/>
       </el-form-item>
@@ -72,8 +72,14 @@ export default {
         age: [
           { validator: checkAge, trigger: 'blur' }
         ]
-      }
+      },
+      loading: true
     }
+  },
+  created() {
+    setTimeout(() => {
+      this.loading = false
+    }, 1000)
   },
   methods: {
     submitForm(formName) {

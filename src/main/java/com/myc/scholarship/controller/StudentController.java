@@ -1,12 +1,15 @@
 package com.myc.scholarship.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.PageDto;
 import com.myc.scholarship.entity.Student;
+import com.myc.scholarship.mian.entity.CommonSearchDto;
 import com.myc.scholarship.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,19 +65,26 @@ public class StudentController implements Serializable {
         return students;
     }
 
-    @ApiOperation(value = "分页",notes = "分页")
-    @PostMapping(value = "/page")
-    @ResponseBody
-    public Page<Student> studentPage(@RequestBody PageDto pageDto){
-        Page<Student> page = new Page<Student>(
-                pageDto.getCurrent(),
-                pageDto.getSize(),
-                pageDto.getOrder(),
-                false
-        );
-       studentService.selectPage(page,new EntityWrapper<Student>());
+     @ApiOperation(value = "分页")
+     @PostMapping("/page")
+     public Page<Student> page(@RequestBody CommonSearchDto<Student> searchDto) throws JSONException {
+        Page<Student> page = searchDto.getPlusPage();
+        Wrapper<Student> wrapper = searchDto.formToEntityWrapperWithSearch(new String[]{"num"},"");
+        page = studentService.selectPage(page,wrapper);
         return page;
+     }
     }
-
-}
+//    @ApiOperation(value = "分页",notes = "分页")
+//    @PostMapping(value = "/page")
+//    @ResponseBody
+//    public Page<Student> studentPage(@RequestBody PageDto pageDto){
+//        Page<Student> page = new Page<Student>(
+//                pageDto.getCurrent(),
+//                pageDto.getSize(),
+//                pageDto.getOrder(),
+//                false
+//        );
+//       studentService.selectPage(page,new EntityWrapper<Student>());
+//        return page;
+//    }
 

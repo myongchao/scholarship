@@ -66,18 +66,18 @@ public class AwardController implements Serializable{
         return  success;
     }
 
-    @ApiOperation(value = "分页",notes = "分页")
-    @PostMapping(value = "/page")
-    @ResponseBody
-    public Page<Award> awardPage(@RequestBody PageDto pageDto){
-        Page<Award> page = new Page<Award>(
-                pageDto.getCurrent(),
-                pageDto.getSize(),
-                pageDto.getOrder(),
-                false
-        );
-        awardService.selectPage(page,new EntityWrapper<Award>());
-        return  page;
-    }
+//    @ApiOperation(value = "分页",notes = "分页")
+//    @PostMapping(value = "/page")
+//    @ResponseBody
+//    public Page<Award> awardPage(@RequestBody PageDto pageDto){
+//        Page<Award> page = new Page<Award>(
+//                pageDto.getCurrent(),
+//                pageDto.getSize(),
+//                pageDto.getOrder(),
+//                false
+//        );
+//        awardService.selectPage(page,new EntityWrapper<Award>());
+//        return  page;
+//    }
 }
 
