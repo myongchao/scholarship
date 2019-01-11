@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myc.scholarship.mapper.RecordMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!--&lt;!&ndash; 开启二级缓存 &ndash;&gt;-->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Record">
@@ -15,5 +15,29 @@
         <result column="check1" property="check1" />
         <result column="check2" property="check2" />
     </resultMap>
+    <resultMap id="listMap" type="com.myc.scholarship.entity.Record" extends="BaseResultMap">
+        <association property="award" javaType="com.myc.scholarship.entity.Award">
+            <id column="aId" property="id"></id>
+            <result column="title" property="title"></result>
+            <result column="bGrade" property="bGrade"></result>
+        </association>
+        <association property="score" javaType="com.myc.scholarship.entity.Score">
+            <result column="score" property="score"></result>
+            <result column="subjectScore" property="subjectScore"></result>
+            <result column="stuClass" property="stuClass"></result>
+        </association>
+    </resultMap>
+
+    <!--<select id="selectWithAward" resultMap="listMap">-->
+        <!--select a.id,a.name,a.num,a.insertTime,a.check1,a.check2,-->
+        <!--b.title,b.bGrade,c.score,c.subjectScore,c.stuClass-->
+        <!--from record a-->
+        <!--left join award b on a.awardId = b.id-->
+        <!--left join score c on c.num = a.num-->
+        <!--where a.isDeleted = 0-->
+    <!--</select>-->
+    <select id="myc" resultMap="BaseResultMap">
+        select * from record
+    </select>
 
 </mapper>

@@ -4,6 +4,8 @@ package com.myc.scholarship.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.myc.scholarship.entity.Record;
 import com.myc.scholarship.entity.Student;
+import com.myc.scholarship.entity.jsonUtil.JsonResultEntity;
+import com.myc.scholarship.entity.jsonUtil.JsonResultUtils;
 import com.myc.scholarship.service.RecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,10 +43,19 @@ public class RecordController implements Serializable {
     @ApiOperation(value = "申请信息列表")
     @GetMapping(value = "/list")
     @ResponseBody
-    public Record list(){
-        Map<String,List<Record>> map = new HashMap<>();
-        Record student = recordService.selectOne(new EntityWrapper<Record>());
-       // map.put("data",records);
-        return student;
+    public JsonResultEntity list(){
+        List<Record> records = recordService.selectWithAward();
+        JsonResultEntity resultEntity = JsonResultUtils.success(records);
+        return resultEntity;
     }
+
+//    @ApiOperation(value = "测试")
+//    @GetMapping(value = "/get")
+//    @ResponseBody
+//    public Record get(){
+//        Record record = recordService.myc();
+//        // JsonResultEntity resultEntity = JsonResultUtils.success(record);
+//        return record;
+//    }
+
 }

@@ -3,13 +3,10 @@ package com.myc.scholarship.entity;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.annotations.Version;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.myc.scholarship.mian.entity.FullAuditedEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
@@ -40,6 +37,8 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
     /**
      * 申请时间
      */
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField("insertTime")
     private Date insertTime;
     /**
@@ -51,5 +50,10 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
      */
     private String check2;
 
+    @TableField(exist = false)
+    private Award award;
+
+    @TableField(exist = false)
+    private Score score;
 
 }

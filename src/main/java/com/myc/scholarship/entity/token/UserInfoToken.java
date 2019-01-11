@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Copyright (C), 2018 - 2019, ZhengZhouChuangZhi. Co., Ltd.
  * FileName: [ 文件名 ]
- * 类的详细说明
+ * 登录验证后返回的信息
  *
  * @author 马勇超
  * @version 1.0

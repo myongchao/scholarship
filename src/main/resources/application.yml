@@ -8,7 +8,7 @@ logging:
 
 #mybatis
 mybatis-plus:
-  mapper-locations: classpath:com/myc/scholarship/mapper/xml/*.xml
+  mapper-locations: classpath*:com/myc/scholarship/mapper/xml/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.myc.scholarship.entity
   global-config:

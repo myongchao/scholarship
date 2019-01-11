@@ -1,7 +1,10 @@
 package com.myc.scholarship.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.myc.scholarship.entity.Record;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,8 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface RecordService extends IService<Record> {
 
+    List<Record> selectWithAward();
+    Record myc();
+
+    Record m();
 }

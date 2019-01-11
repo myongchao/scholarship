@@ -47,10 +47,10 @@ public class UserController implements Serializable {
         }
         UserInfoToken userInfoToken = new UserInfoToken();
         if(success){
-            Map<String,String> list = new HashMap<>();
+            Map<String,String> map = new HashMap<>();
             userInfoToken.setCode(20000);
-            list.put("token",num);
-            userInfoToken.setData(list);
+            map.put("token",num);
+            userInfoToken.setData(map);
         }
         return userInfoToken;
     }

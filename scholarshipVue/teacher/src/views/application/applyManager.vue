@@ -1,14 +1,14 @@
 <template>
   <div class="manager">
-    <el-table v-for="(item,index) in tableData1" :key="index">
+    <el-table :data="tableData">
       <el-table-column :index="indexMethod" type="index" align="center" width="140"/>
       <el-table-column prop="level" align="center" label="奖学金级别" width="140"/>
       <el-table-column prop="score" align="center" label="成绩" width="120"/>
       <el-table-column prop="credit" align="center" label="学分" width="120"/>
       <el-table-column prop="name" align="center" label="姓名" width="120"/>
-      <el-table-column prop="address" align="center" label="地址" width="120"/>
-      <el-table-column prop="date" align="center" label="日期" width="140"/>
-      <el-table-column prop="item.check1" align="center" label="状态" width="140">
+      <el-table-column prop="insertTime" align="center" label="日期" width="140"/>
+      <el-table-column prop="check1" align="center" label="教师审核状态" width="120"/>
+      <el-table-column prop="check2" align="center" label="状态" width="140">
         <template slot-scope="scope">
           <el-input v-show="scope.row.edit" v-model="scope.row.state" size="small"/>
           <span v-show="!scope.row.edit">{{ scope.row.state }}</span>
@@ -34,7 +34,7 @@
 
 <script>
 // import page from '@/components/page'
-import { recordList } from '@/api/record'
+import { recordList, fetchOne } from '@/api/record'
 export default {
   components: {
   //  page
@@ -55,7 +55,7 @@ export default {
       loading: false, // 加载
       multipleSelection: [], // 获取复选框被选中的
       // tableData: Array(20).fill(item)
-      tableData: [
+      tableData1: [
         { level: '一等奖学金',
           score: '600',
           credit: '24',
@@ -148,7 +148,8 @@ export default {
           address: '郑州师范学院',
           state: '未审核' }
       ],
-      tableData1: []
+      tableData: [],
+      string: undefined
     }
   },
   created() {
@@ -159,20 +160,10 @@ export default {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     },
     getList() {
-      this.tableData1 = this.ta
-      // new Promise(function(resolve, reject) {
-      //   recordList().then(e => {
-      //     debugger
-      //   //  this.tableData1 = e.data
-      //   })
-      //   // reject('该prormise已被拒绝')
-      // }).catch(function(reason) {
-      //   console.log('catch:', reason)
-      // })
-      // debugger
       recordList().then(response => {
         const data = response.data
-        this.tableData1 = data
+        this.tableData = data
+        console.log(this.tableData)
       })
       // recordList().then(response => {
       //   const data = response.data
@@ -180,6 +171,11 @@ export default {
       // }).catch(error => {
       //   throw new Error(error)
       // })
+      fetchOne().then(e => {
+        // debugger
+        this.string = e.data
+        console.log(this.string)
+      })
     }
   }
 
