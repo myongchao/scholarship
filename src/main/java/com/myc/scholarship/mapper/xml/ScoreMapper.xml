@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myc.scholarship.mapper.ScoreMapper">
 
-    <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!--&lt;!&ndash; 开启二级缓存 &ndash;&gt;-->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Score">
@@ -14,17 +14,9 @@
         <result column="totalScore" property="totalScore" />
         <result column="name" property="name" />
         <result column="num" property="num" />
-        <result column="stuClass" property="stuClass" />
+        <result column="classId" property="classId" />
         <result column="status" property="status" />
         <result column="rank" property="rank" />
-        <result column="tenantId" property="tenantId" />
-        <result column="creationTime" property="creationTime" />
-        <result column="creatorUserId" property="creatorUserId" />
-        <result column="lastModificationTime" property="lastModificationTime" />
-        <result column="lastModefierUserId" property="lastModefierUserId" />
-        <result column="isDeleted" property="isDeleted" />
-        <result column="deleterUserId" property="deleterUserId" />
-        <result column="deletionTime" property="deletionTime" />
     </resultMap>
 
 </mapper>

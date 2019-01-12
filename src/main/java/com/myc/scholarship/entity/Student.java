@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.myc.scholarship.mian.entity.FullAuditedEntity;
 import lombok.Data;
+import lombok.Lombok;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -32,12 +33,13 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
     /**
      * 院系
      */
-    private String dep;
+    @TableField("depId")
+    private Long depId;
     /**
      * 班级
      */
-    @TableField("stuClass")
-    private String stuClass;
+    @TableField("classId")
+    private Long classId;
     /**
      * 层次
      */
@@ -76,6 +78,5 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
      */
     @TableField("inComeFrom")
     private String inComeFrom;
-
 
 }

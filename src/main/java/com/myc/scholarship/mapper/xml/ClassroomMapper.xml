@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.myc.scholarship.mapper.UserMapper">
+<mapper namespace="com.myc.scholarship.mapper.ClassroomMapper">
 
-    <!-- 开启二级缓存 -->
+    <!--&lt;!&ndash; 开启二级缓存 &ndash;&gt;-->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.User">
+    <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Classroom">
         <id column="id" property="id" />
-        <result column="num" property="num" />
         <result column="name" property="name" />
-        <result column="pwd" property="pwd" />
-        <result column="role" property="role" />
-        <result column="status" property="status" />
     </resultMap>
 
 </mapper>

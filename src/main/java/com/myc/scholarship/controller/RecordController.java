@@ -36,8 +36,15 @@ public class RecordController implements Serializable {
     @ApiOperation(value = "更新")
     @PostMapping(value = "/edit")
     @ResponseBody
-    public Boolean edit(@RequestBody Record record){
-        return recordService.updateById(record);
+    public JsonResultEntity edit(@RequestParam("id")Long id,@RequestParam("check")String check){
+        Record record = recordService.selectById(id);
+        record.setCheck2(check);
+        Boolean success = recordService.updateById(record);
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        if(success){
+            resultEntity = JsonResultUtils.success(success);
+        }
+        return resultEntity;
     }
 
     @ApiOperation(value = "申请信息列表")
@@ -49,13 +56,12 @@ public class RecordController implements Serializable {
         return resultEntity;
     }
 
-//    @ApiOperation(value = "测试")
-//    @GetMapping(value = "/get")
-//    @ResponseBody
-//    public Record get(){
-//        Record record = recordService.myc();
-//        // JsonResultEntity resultEntity = JsonResultUtils.success(record);
-//        return record;
-//    }
+    @ApiOperation(value = "测试")
+    @GetMapping(value = "/get")
+    @ResponseBody
+    public Record get(){
+        Record record = recordService.myc();
+        return record;
+    }
 
 }

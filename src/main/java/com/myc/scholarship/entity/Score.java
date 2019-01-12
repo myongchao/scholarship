@@ -60,8 +60,8 @@ public class Score extends FullAuditedEntity<Score,Long> implements Serializable
     /**
      * 班级
      */
-    @TableField("stuClass")
-    private String stuClass;
+    @TableField("classId")
+    private Long classId;
     /**
      * 成绩状态
      */

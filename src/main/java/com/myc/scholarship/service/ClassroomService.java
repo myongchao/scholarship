@@ -1,8 +1,7 @@
 package com.myc.scholarship.service;
 
-
+import com.myc.scholarship.entity.Classroom;
 import com.baomidou.mybatisplus.service.IService;
-import com.myc.scholarship.entity.Student;
 
 /**
  * <p>
@@ -10,8 +9,8 @@ import com.myc.scholarship.entity.Student;
  * </p>
  *
  * @author Juci123
- * @since 2018-11-25
+ * @since 2019-01-12
  */
-public interface StudentService extends IService<Student>{
+public interface ClassroomService extends IService<Classroom> {
 
 }

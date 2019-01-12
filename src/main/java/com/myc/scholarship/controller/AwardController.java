@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.myc.scholarship.entity.Award;
 import com.myc.scholarship.entity.PageDto;
+import com.myc.scholarship.entity.jsonUtil.JsonResultEntity;
+import com.myc.scholarship.entity.jsonUtil.JsonResultUtils;
 import com.myc.scholarship.service.AwardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * Copyright (C), 2018 - 2019, ZhengZhouChuangZhi. Co., L td.
@@ -64,6 +67,15 @@ public class AwardController implements Serializable{
     public Boolean delete(@PathVariable("id") Long id){
        Boolean success =  awardService.deleteById(id);
         return  success;
+    }
+
+    @ApiOperation(value = "所有奖学金类型",notes = "所有奖学金类型")
+    @GetMapping(value = "/list")
+    @ResponseBody
+    public JsonResultEntity list(){
+        List<Award> awards = awardService.selectList(new EntityWrapper<>());
+        JsonResultEntity resultEntity = JsonResultUtils.success(awards);
+        return  resultEntity;
     }
 
 //    @ApiOperation(value = "分页",notes = "分页")

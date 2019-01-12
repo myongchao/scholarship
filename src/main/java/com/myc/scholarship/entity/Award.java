@@ -52,5 +52,9 @@ public class Award extends FullAuditedEntity<Award,Long> implements Serializable
     @TableField("minScore")
     private Double minScore;
 
+    @TableField("subjectScore")
+    private Integer subjectScore;
+
+    private Integer rank;
 
 }

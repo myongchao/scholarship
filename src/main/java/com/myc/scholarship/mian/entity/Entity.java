@@ -43,6 +43,7 @@ public class Entity<T extends Model, P extends Serializable> extends Model<T> {
         return null;
     }
 
+    @Override
     protected Serializable pkVal() {
         return this.id;
     }

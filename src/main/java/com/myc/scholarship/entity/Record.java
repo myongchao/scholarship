@@ -34,10 +34,15 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
      */
     @TableField("awardId")
     private Long awardId;
+
+    @TableField("classId")
+    private Long classId;
+
+    @TableField("depId")
+    private Long depId;
     /**
      * 申请时间
      */
-
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @TableField("insertTime")
     private Date insertTime;
@@ -55,5 +60,14 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
 
     @TableField(exist = false)
     private Score score;
+
+    @TableField(exist = false)
+    private Student student;
+
+    @TableField(exist = false)
+    private Classroom classroom;
+
+    @TableField(exist = false)
+    private Department department;
 
 }

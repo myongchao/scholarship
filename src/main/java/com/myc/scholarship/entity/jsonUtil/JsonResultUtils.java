@@ -27,8 +27,12 @@ public class JsonResultUtils{
         return jsonResult;
     }
 
-    public static JsonResultEntity success() {
-        return success(null);
+    public static JsonResultEntity success(Boolean b) {
+        JsonResultEntity jsonResult = new JsonResultEntity();
+        jsonResult.setData("");
+        jsonResult.setCode(20000);
+        jsonResult.setSuccess(b);
+        return jsonResult;
     }
 
     public static JsonResultEntity error(Integer code, Boolean b) {

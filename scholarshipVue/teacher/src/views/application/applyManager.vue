@@ -1,43 +1,43 @@
 <template>
   <div class="manager">
-    <el-table :data="tableData">
+    <el-table :data="tableData" :key="index">
       <el-table-column :index="indexMethod" type="index" align="center" width="140"/>
-      <el-table-column prop="level" align="center" label="奖学金级别" width="140"/>
-      <el-table-column prop="score" align="center" label="成绩" width="120"/>
-      <el-table-column prop="credit" align="center" label="学分" width="120"/>
+      <el-table-column prop="award.title" align="center" label="奖学金名称" width="140"/>
+      <el-table-column prop="award.bgrade" align="center" label="奖学金级别" width="140"/>
+      <el-table-column prop="score.score" align="center" label="成绩" width="120"/>
+      <el-table-column prop="score.subjectScore" align="center" label="学分" width="120"/>
       <el-table-column prop="name" align="center" label="姓名" width="120"/>
+      <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
+      <el-table-column prop="department.name" align="center" label="院系" width="120"/>
       <el-table-column prop="insertTime" align="center" label="日期" width="140"/>
       <el-table-column prop="check1" align="center" label="教师审核状态" width="120"/>
-      <el-table-column prop="check2" align="center" label="状态" width="140">
+      <el-table-column min-width="300px" label="教务处审核状态" align="center" width="250">
         <template slot-scope="scope">
-          <el-input v-show="scope.row.edit" v-model="scope.row.state" size="small"/>
-          <span v-show="!scope.row.edit">{{ scope.row.state }}</span>
+          <template v-if="scope.row.edit">
+            <el-input v-model="scope.row.check2" class="edit-input" size="small"/>
+            <el-button class="cancel-btn" size="small" icon="el-icon-refresh" type="warning" @click="cancelEdit(scope.row)">取消</el-button>
+          </template>
+          <span v-else>{{ scope.row.check2 }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="操作"
-        align="center"
-      >
+
+      <el-table-column align="center" label="操作" width="120">
         <template slot-scope="scope">
-          <el-row>
-            <el-button v-show="!scope.row.edit" type="primary" size="small" icon="edit" @click="scope.row.edit=true">编辑</el-button>
-            <el-button v-show="scope.row.edit" type="success" size="small" icon="check" @click="scope.row.edit=false">完成</el-button>
-            <!-- <el-button type="primary" icon="el-icon-edit" @click="editProfession(scope.row.id)"/>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteProfession(scope.$index)"/> -->
-          </el-row>
+          <el-button v-if="scope.row.edit" type="success" size="small" icon="el-icon-circle-check-outline" @click="confirmEdit(scope.row)">完成</el-button>
+          <el-button v-else type="primary" size="small" icon="el-icon-edit" @click="scope.row.edit=!scope.row.edit">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!-- <page :page="form.page" @changed="getList"/> -->
+    <page :page="form.page" @changed="getList"/>
   </div>
 </template>
 
 <script>
-// import page from '@/components/page'
-import { recordList, fetchOne } from '@/api/record'
+import page from '@/components/page'
+import { recordList, update } from '@/api/record'
 export default {
   components: {
-  //  page
+    page
   },
   data() {
     return {
@@ -48,108 +48,13 @@ export default {
           pageCount: 10,
           total: 0
         },
-        search: ''
-        // orderBy: 'id desc'
+        search: '',
+        orderBy: 'id desc'
       },
       departments: [], // 院系信息
       loading: false, // 加载
-      multipleSelection: [], // 获取复选框被选中的
-      // tableData: Array(20).fill(item)
-      tableData1: [
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' },
-        { level: '一等奖学金',
-          score: '600',
-          credit: '24',
-          date: '2018-11-24',
-          name: 'myc',
-          address: '郑州师范学院',
-          state: '未审核' }
-      ],
       tableData: [],
-      string: undefined
+      recordId: undefined
     }
   },
   created() {
@@ -163,18 +68,31 @@ export default {
       recordList().then(response => {
         const data = response.data
         this.tableData = data
-        console.log(this.tableData)
+        this.tableData = data.map(v => {
+          this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
+          v.originalCheck2 = v.check2 //  will be used when user click the cancel botton
+          return v
+        })
       })
-      // recordList().then(response => {
-      //   const data = response.data
-      //   this.tableData1 = data
-      // }).catch(error => {
-      //   throw new Error(error)
-      // })
-      fetchOne().then(e => {
-        // debugger
-        this.string = e.data
-        console.log(this.string)
+    },
+    cancelEdit(row) {
+      row.check2 = row.originalCheck2
+      row.edit = false
+      this.$message({
+        message: '审核状态未修改',
+        type: 'warning'
+      })
+    },
+    confirmEdit(row) {
+      row.edit = false
+      row.originalCheck2 = row.check2
+      update(row.id, row.check2).then(e => {
+        if (e.data) {
+          this.$message({
+            message: '审核状态已修改',
+            type: 'success'
+          })
+        }
       })
     }
   }
@@ -190,6 +108,20 @@ export default {
     }
     body{
         background-color: #E4E7ED;
+    }
+    .el-input {
+    width: 70%;
+   }
+    .edit-input {
+       padding-right: 100px;
+    }
+    .cancel-btn {
+      position: absolute;
+      right: 15px;
+      top: 18px;
+    }
+    .active{
+      color: rgb(21, 124, 124)
     }
 </style>
 
