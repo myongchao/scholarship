@@ -9,10 +9,30 @@
     <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.User">
         <id column="id" property="id" />
         <result column="num" property="num" />
+        <result column="code" property="code"></result>
         <result column="name" property="name" />
         <result column="pwd" property="pwd" />
         <result column="role" property="role" />
-        <result column="status" property="status" />
+        <result column="classId" property="classId"></result>
+        <result column="depId" property="depId"></result>
     </resultMap>
+    
+    <resultMap id="listMap" type="com.myc.scholarship.entity.User" extends="BaseResultMap">
+        <association property="classroom" javaType="com.myc.scholarship.entity.Classroom">
+            <result column="cName" property="name"></result>
+        </association>
+        <association property="dep" javaType="com.myc.scholarship.entity.Department">
+            <result column="dName" property="name"></result>
+        </association>
+    </resultMap>
+    
+    <select id="selectWithNum" resultMap="listMap">
+        select a.num,a.name,a.role,a.code,
+        c.name as cName,d.name as dName
+        from user a
+        left join classroom c on c.id = a.classId
+        left  join department d on d.id = a.depId
+        where a.num = #{num}
+    </select>
 
 </mapper>

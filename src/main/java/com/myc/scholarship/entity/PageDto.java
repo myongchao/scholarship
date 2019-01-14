@@ -15,7 +15,6 @@ import lombok.Data;
 public class PageDto {
     private Integer current;
     private Integer pageCount;
-
     public PageDto() {
     }
 

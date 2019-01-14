@@ -19,6 +19,16 @@ public class JsonResultUtils{
         return jsonResult;
     }
 
+    public static JsonResultEntity success(Object object, Boolean b) {
+        JsonResultEntity jsonResult = new JsonResultEntity();
+        jsonResult.setData(object);
+        if(b){
+            jsonResult.setCode(20000);
+        }
+        jsonResult.setSuccess(b);
+        return jsonResult;
+    }
+
     public static JsonResultEntity success(Object object, Integer code, Boolean b) {
         JsonResultEntity jsonResult = new JsonResultEntity();
         jsonResult.setData(object);

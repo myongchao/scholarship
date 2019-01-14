@@ -2,20 +2,20 @@ package com.myc.scholarship.controller;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.Record;
-import com.myc.scholarship.entity.Student;
 import com.myc.scholarship.entity.jsonUtil.JsonResultEntity;
 import com.myc.scholarship.entity.jsonUtil.JsonResultUtils;
+import com.myc.scholarship.mian.entity.CommonSearchDto;
 import com.myc.scholarship.service.RecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -56,12 +56,13 @@ public class RecordController implements Serializable {
         return resultEntity;
     }
 
-    @ApiOperation(value = "测试")
-    @GetMapping(value = "/get")
-    @ResponseBody
-    public Record get(){
-        Record record = recordService.myc();
-        return record;
+    @ApiOperation(value = "分页")
+    @PostMapping("/page")
+    public JsonResultEntity page(@RequestBody CommonSearchDto<Record> searchDto) throws JSONException {
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        Page<Record> recordPage = recordService.pageWithAwardAndScore(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"awardId"},"a."));
+        resultEntity = JsonResultUtils.success(recordPage);
+        return resultEntity;
     }
 
 }

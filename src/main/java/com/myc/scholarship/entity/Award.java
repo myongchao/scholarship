@@ -57,4 +57,6 @@ public class Award extends FullAuditedEntity<Award,Long> implements Serializable
 
     private Integer rank;
 
+    private String status;
+
 }

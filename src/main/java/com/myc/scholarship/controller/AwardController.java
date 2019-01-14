@@ -8,9 +8,11 @@ import com.myc.scholarship.entity.Award;
 import com.myc.scholarship.entity.PageDto;
 import com.myc.scholarship.entity.jsonUtil.JsonResultEntity;
 import com.myc.scholarship.entity.jsonUtil.JsonResultUtils;
+import com.myc.scholarship.mian.entity.CommonSearchDto;
 import com.myc.scholarship.service.AwardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,18 +80,13 @@ public class AwardController implements Serializable{
         return  resultEntity;
     }
 
-//    @ApiOperation(value = "分页",notes = "分页")
-//    @PostMapping(value = "/page")
-//    @ResponseBody
-//    public Page<Award> awardPage(@RequestBody PageDto pageDto){
-//        Page<Award> page = new Page<Award>(
-//                pageDto.getCurrent(),
-//                pageDto.getSize(),
-//                pageDto.getOrder(),
-//                false
-//        );
-//        awardService.selectPage(page,new EntityWrapper<Award>());
-//        return  page;
-//    }
+    @ApiOperation(value = "分页",notes = "分页")
+    @PostMapping(value = "/page")
+    @ResponseBody
+    public JsonResultEntity page(@RequestBody CommonSearchDto<Award> searchDto) throws JSONException {
+        Page<Award> awardPage = awardService.pageWithSearch(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"id"},null));
+        JsonResultEntity resultEntity = JsonResultUtils.success(awardPage);
+        return  resultEntity;
+    }
 }
 

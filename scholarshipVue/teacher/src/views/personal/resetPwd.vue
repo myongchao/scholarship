@@ -1,48 +1,43 @@
 <template>
   <div class="pwd">
-    <el-form v-loading="loading" ref="ruleForm2" :model="ruleForm2" :rules="rules2" status-icon label-width="100px" class="demo-ruleForm">
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model.number="ruleForm2.username" placeholder="myc"/>
+    <el-form v-loading="loading" ref="ruleForm" :model="ruleForm" :rules="rules2" status-icon label-width="100px" class="demo-ruleForm">
+      <el-form-item label="原密码" prop="oldPwd">
+        <el-input v-model="ruleForm.oldPwd" type="password" />
       </el-form-item>
-      <el-form-item label="密码" prop="pass">
-        <el-input v-model="ruleForm2.pass" type="password" autocomplete="off"/>
+      <el-form-item label="新密码" prop="pass">
+        <el-input v-model="ruleForm.pass" type="password" autocomplete="off"/>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input v-model="ruleForm2.checkPass" type="password" autocomplete="off"/>
+        <el-input v-model="ruleForm.checkPass" type="password" autocomplete="off"/>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-        <el-button @click="resetForm('ruleForm2')">重置</el-button>
+        <el-button type="primary" @click="submitForm()">提交</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import { changePwd } from '@/api/login'
 export default {
   data() {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('年龄不能为空'))
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'))
-        } else {
-          if (value < 18) {
-            callback(new Error('必须年满18岁'))
-          } else {
-            callback()
-          }
-        }
-      }, 1000)
-    }
+    // var validateOldPwd = (rule, value, callback) => {
+    //   if (value === '') {
+    //     callback(new Error('请输入密码'))
+    //   } else {
+    //     if (this.ruleForm.oldPwd !== '') {
+    //       this.$refs.ruleForm.validateField('checkPass')
+    //     }
+    //     callback()
+    //   }
+    // }
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.ruleForm2.checkPass !== '') {
-          this.$refs.ruleForm2.validateField('checkPass')
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass')
         }
         callback()
       }
@@ -50,17 +45,17 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.ruleForm2.pass) {
+      } else if (value !== this.ruleForm.pass) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
       }
     }
     return {
-      ruleForm2: {
-        pass: '',
-        checkPass: '',
-        age: ''
+      ruleForm: {
+        oldPwd: '', // 原密码
+        pass: '', // 新密码
+        checkPass: '' // 确认密码
       },
       rules2: {
         pass: [
@@ -68,12 +63,13 @@ export default {
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
-        ],
-        age: [
-          { validator: checkAge, trigger: 'blur' }
         ]
+        // oldPwd: [
+        //   { validator: validateOldPwd, trigger: 'blur' }
+        // ]
       },
-      loading: true
+      loading: true,
+      answer: null
     }
   },
   created() {
@@ -82,15 +78,19 @@ export default {
     }, 1000)
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+    submitForm() {
+      debugger
+      changePwd(this.resetForm).then(e => {
+        this.answer = e.data.data
       })
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     alert('submit!')
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

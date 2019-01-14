@@ -21,3 +21,19 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function get(token) {
+  return request({
+    url: '/user/get',
+    method: 'get',
+    params: { token }
+  })
+}
+
+export function changePwd(data) {
+  return request({
+    url: '/user/changePwd',
+    method: 'post',
+    data
+  })
+}

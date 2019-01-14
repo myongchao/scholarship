@@ -32,7 +32,7 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
     /**
      * 奖项id
      */
-    @TableField("awardId")
+    @TableField("award_id")
     private Long awardId;
 
     @TableField("classId")

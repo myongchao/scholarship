@@ -2,31 +2,36 @@
   <div style="margin: 20px auto" class="wrap">
     <table class="m">
       <tr>
-        <td class="m">账号(学号)：</td>
-        <td>123456</td>
+        <td class="m">账号：</td>
+        <td>{{ admin.num }}</td>
+      </tr>
+      <tr>
+        <td class="m">工号：</td>
+        <td>{{ admin.code }}</td>
       </tr>
       <tr>
         <td class="m">姓名：</td>
-        <td>myc</td>
+        <td>{{ admin.name }}</td>
       </tr>
       <tr>
-        <td class="m">联系方式：</td>
-        <td>15136127135</td>
+        <td class="m">角色：</td>
+        <td>{{ admin.role }}</td>
       </tr>
       <tr>
-        <td class="m">班级信息：</td>
-        <td>B15计科一班</td>
+        <td class="m">院系：</td>
+        <td>{{ admin.dep.name }}</td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
-import { getStudentList } from '@/api/student'
+import { get } from '@/api/login'
+import store from '@/store'
 export default {
   data() {
     return {
-      studentList: []
+      admin: undefined
     }
   },
   created() {
@@ -34,8 +39,8 @@ export default {
   },
   methods: {
     getStudent() {
-      getStudentList().then(e => {
-        this.studentList = e.data.data
+      get(store.getters.token).then(e => {
+        this.admin = e.data
       })
     }
   }

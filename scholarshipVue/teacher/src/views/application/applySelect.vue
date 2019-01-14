@@ -31,10 +31,9 @@
         <el-table-column prop="score.subjectScore" align="center" label="学分" width="120"/>
         <el-table-column prop="name" align="center" label="姓名" width="120"/>
         <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
-        <el-table-column prop="department.name" align="center" label="院系" width="120"/>
-        <el-table-column prop="insertTime" align="center" label="日期" width="120"/>
-        <el-table-column prop="check1" align="center" label="教师审核状态" width="120"/>
-        <el-table-column min-width="300px" label="教务处审核状态" align="center">
+        <el-table-column prop="department.name" align="center" label="院系" width="130"/>
+        <el-table-column prop="insertTime" align="center" label="日期" width="150"/>
+        <el-table-column min-width="300px" label="辅导员审核状态" align="center">
           <template slot-scope="scope">
             <template v-if="scope.row.edit">
               <el-input v-model="scope.row.check2" class="edit-input" size="small"/>
@@ -59,7 +58,10 @@
 <script>
 
 import page from '@/components/page'
-import { recordList, update } from '@/api/record'
+import {
+  // recordList,
+  update,
+  searchWithPage } from '@/api/record'
 import { awardList } from '@/api/award'
 export default {
   components: {
@@ -80,19 +82,23 @@ export default {
       awards: [],
       loading: false, // 加载
       tableData: [],
-      recordId: undefined
+      searchParams: {}
     }
   },
   created() {
     this.getList()
   },
   methods: {
-    indexMethod(index) {
-      return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
-    },
     getList() {
-      recordList().then(response => {
-        const data = response.data
+      this.searchParams.page = this.form.page
+      if (this.form.awardId !== null) {
+        this.searchParams.form = {
+          awardId: this.form.awardId
+        }
+      }
+      searchWithPage(this.searchParams).then(e => {
+        const data = e.data.records
+        this.form.page.total = e.data.total
         this.tableData = data
         this.tableData = data.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
@@ -123,6 +129,9 @@ export default {
           })
         }
       })
+    },
+    indexMethod(index) {
+      return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     }
   }
 
@@ -148,11 +157,11 @@ export default {
        text-align: center;
     }
     .edit-input {
-       padding-right: 100px;
+       padding-right: 80px;
     }
     .cancel-btn {
       position: absolute;
       right: 15px;
-      top: 18px;
+      top: 14px;
     }
 </style>

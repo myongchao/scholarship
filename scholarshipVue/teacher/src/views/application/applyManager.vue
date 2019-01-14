@@ -1,7 +1,7 @@
 <template>
   <div class="manager">
-    <el-table :data="tableData" :key="index">
-      <el-table-column :index="indexMethod" type="index" align="center" width="140"/>
+    <el-table :data="tableData">
+      <el-table-column :index="indexMethod" type="index" label="序号" align="center" width="140"/>
       <el-table-column prop="award.title" align="center" label="奖学金名称" width="140"/>
       <el-table-column prop="award.bgrade" align="center" label="奖学金级别" width="140"/>
       <el-table-column prop="score.score" align="center" label="成绩" width="120"/>
@@ -10,8 +10,7 @@
       <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
       <el-table-column prop="department.name" align="center" label="院系" width="120"/>
       <el-table-column prop="insertTime" align="center" label="日期" width="140"/>
-      <el-table-column prop="check1" align="center" label="教师审核状态" width="120"/>
-      <el-table-column min-width="300px" label="教务处审核状态" align="center" width="250">
+      <el-table-column min-width="300px" label="辅导员审核状态" align="center" width="250">
         <template slot-scope="scope">
           <template v-if="scope.row.edit">
             <el-input v-model="scope.row.check2" class="edit-input" size="small"/>
@@ -34,7 +33,10 @@
 
 <script>
 import page from '@/components/page'
-import { recordList, update } from '@/api/record'
+import {
+  // recordList,
+  update,
+  searchWithPage } from '@/api/record'
 export default {
   components: {
     page
@@ -61,12 +63,10 @@ export default {
     this.getList()
   },
   methods: {
-    indexMethod(index) {
-      return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
-    },
     getList() {
-      recordList().then(response => {
-        const data = response.data
+      searchWithPage(this.form).then(e => {
+        const data = e.data.records
+        this.form.page.total = e.data.total
         this.tableData = data
         this.tableData = data.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
@@ -94,6 +94,9 @@ export default {
           })
         }
       })
+    },
+    indexMethod(index) {
+      return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     }
   }
 
@@ -110,10 +113,10 @@ export default {
         background-color: #E4E7ED;
     }
     .el-input {
-    width: 70%;
+    width: 75%;
    }
     .edit-input {
-       padding-right: 100px;
+       padding-right: 80px;
     }
     .cancel-btn {
       position: absolute;

@@ -14,6 +14,14 @@
         <result column="minScore" property="minScore" />
         <result column="subjectScore" property="subjectScore"></result>
         <result column="rank" property="rank"></result>
+        <result column="status" property="status"></result>
     </resultMap>
+
+    <select id="pageWithSearch" resultMap="BaseResultMap">
+        select * from award
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
 
 </mapper>

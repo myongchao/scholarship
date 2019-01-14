@@ -428,23 +428,23 @@ public class Convert {
 
         return sb.toString().toLowerCase();
     }
-//
-//    public static String underlineToHump(String para) {
-//        StringBuilder result = new StringBuilder();
-//        String[] a = para.split("_");
-//        String[] var3 = a;
-//        int var4 = a.length;
-//
-//        for(int var5 = 0; var5 < var4; ++var5) {
-//            String s = var3[var5];
-//            if (result.length() == 0) {
-//                result.append(s.toLowerCase());
-//            } else {
-//                result.append(s.substring(0, 1).toUpperCase());
-//                result.append(s.substring(1).toLowerCase());
-//            }
-//        }
 
-       // return result.toString();
-   // }
+    public static String underlineToHump(String para) {
+        StringBuilder result = new StringBuilder();
+        String[] a = para.split("_");
+        String[] var3 = a;
+        int var4 = a.length;
+
+        for(int var5 = 0; var5 < var4; ++var5) {
+            String s = var3[var5];
+            if (result.length() == 0) {
+                result.append(s.toLowerCase());
+            } else {
+                result.append(s.substring(0, 1).toUpperCase());
+                result.append(s.substring(1).toLowerCase());
+            }
+        }
+
+        return result.toString();
+    }
 }

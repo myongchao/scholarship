@@ -13,4 +13,5 @@ import com.myc.scholarship.entity.User;
  */
 public interface UserService extends IService<User>{
 
+    User selectWithNum(String num);
 }

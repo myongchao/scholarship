@@ -18,4 +18,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
 
+    /**
+    * @description  通过账号获取用户信息
+    * @author 马勇超
+    * @date 2019/1/14 14:07
+    * @param
+    * @return
+    */
+    @Override
+    public User selectWithNum(String num) {
+        return baseMapper.selectWithNum(num);
+    }
 }

@@ -13,4 +13,5 @@ import com.myc.scholarship.entity.User;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    User selectWithNum(String num);
 }
