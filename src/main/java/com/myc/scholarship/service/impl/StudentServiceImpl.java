@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -21,4 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> implements StudentService {
 
+    @Override
+    public Page<Student> selectWithClassAndDep(Page<Student> plusPage, Wrapper<Student> formToEntityWrapperWithSearch) {
+        List<Student> students = baseMapper.selectWithClassAndDep(plusPage,formToEntityWrapperWithSearch.eq("a.isDeleted",0));
+        plusPage.setRecords(students);
+        return plusPage;
+    }
 }

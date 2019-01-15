@@ -89,6 +89,55 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/student',
+    component: Layout,
+    redirect: '/student',
+    name: 'student',
+    meta: { title: '学生信息管理', icon: 'form' },
+    children: [{
+      path: 'classroom',
+      name: 'classroom',
+      component: () => import('@/views/student/classroom/index'),
+      meta: { title: '学生信息', icon: 'form' },
+      children: [
+        {
+          path: 'class1',
+          component: () => import('@/views/student/classroom/class1/index'),
+          name: 'class1',
+          meta: { title: '计科1班', icon: 'form' }
+        },
+        {
+          path: 'class2',
+          component: () => import('@/views/student/classroom/class2/index'),
+          name: 'class2',
+          meta: { title: '计科2班', icon: 'form' }
+        }
+      ]
+    },
+    {
+      path: 'grade/index',
+      name: 'grade',
+      component: () => import('@/views/student/grade/index'),
+      meta: { title: '成绩管理', icon: 'form' },
+      children: [
+        {
+          path: 'grade/grade1',
+          component: () => import('@/views/student/grade/grade1/grade1'),
+          name: 'class1-1',
+          meta: { title: '计科1班', icon: 'form' }
+        },
+        {
+          path: 'grade/grade2',
+          component: () => import('@/views/student/grade/grade2/grade2'),
+          name: 'class1-2',
+          meta: { title: '计科2班', icon: 'form' }
+        }
+      ]
+    }
+    ]
+  },
+
+  {
     path: '/personal',
     component: Layout,
     redirect: '/personal',

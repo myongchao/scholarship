@@ -70,6 +70,7 @@ public class UserController implements Serializable {
         tokenData.setRoles(list);
         tokenData.setName(user);
         tokenData.setAvatar("http://img.mp.itc.cn/upload/20161221/ed4582188d324eca9811ded71c94808a_th.jpeg");
+        //tokenData.setAvatar("http://img.mp.itc.cn/upload/20161221/ed4582188d324eca9811ded71c94808a_th.jpeg");
         returnToken.setData(tokenData);
         return returnToken;
     }
@@ -105,7 +106,7 @@ public class UserController implements Serializable {
             }
         }else {
             String data = "原密码输入错误！";
-            resultEntity = JsonResultUtils.success(data);
+            resultEntity = JsonResultUtils.success(data,20000,false);
         }
 
         return resultEntity;

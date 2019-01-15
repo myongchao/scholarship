@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.PageDto;
 import com.myc.scholarship.entity.Student;
+import com.myc.scholarship.entity.jsonUtil.JsonResultEntity;
+import com.myc.scholarship.entity.jsonUtil.JsonResultUtils;
 import com.myc.scholarship.mian.entity.CommonSearchDto;
 import com.myc.scholarship.service.StudentService;
 import io.swagger.annotations.Api;
@@ -67,11 +69,10 @@ public class StudentController implements Serializable {
 
      @ApiOperation(value = "分页")
      @PostMapping("/page")
-     public Page<Student> page(@RequestBody CommonSearchDto<Student> searchDto) throws JSONException {
-        Page<Student> page = searchDto.getPlusPage();
-        Wrapper<Student> wrapper = searchDto.formToEntityWrapperWithSearch(new String[]{"num"},"");
-        page = studentService.selectPage(page,wrapper);
-        return page;
+     public JsonResultEntity page(@RequestBody CommonSearchDto<Student> searchDto) throws JSONException {
+        Page<Student> page = studentService.selectWithClassAndDep(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"name","num","classId"},"a."));
+        JsonResultEntity resultEntity = JsonResultUtils.success(page);
+        return resultEntity;
      }
     }
 //    @ApiOperation(value = "分页",notes = "分页")

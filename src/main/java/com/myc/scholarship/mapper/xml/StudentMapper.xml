@@ -22,4 +22,24 @@
         <result column="inComeFrom" property="inComeFrom" />
     </resultMap>
 
+    <resultMap id="pageMap" type="com.myc.scholarship.entity.Student" extends="BaseResultMap">
+        <association property="classroom" javaType="com.myc.scholarship.entity.Classroom">
+            <result column="cName" property="name"></result>
+        </association>
+        <association property="dep" javaType="com.myc.scholarship.entity.Department">
+            <result column="dName" property="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectWithClassAndDep" resultMap="pageMap">
+        select a.*,c.name as cName,d.name as dName
+        from student a
+        left join classroom c on c.id = a.classId
+        left join department d on d.id = a.depId
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+
 </mapper>

@@ -96,9 +96,9 @@ export default {
 </script>
 
 <style  scoped>
-  body{
+  /* body{
     background-color: #E4E7ED;
-  }
+  } */
   .tree{
     margin-top: 10px;
   }

@@ -79,4 +79,9 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
     @TableField("inComeFrom")
     private String inComeFrom;
 
+    @TableField(exist = false)
+    private Classroom classroom;
+    @TableField(exist = false)
+    private Department dep;
+
 }

@@ -16,3 +16,12 @@ export function getStudentList(data) {
     data
   })
 }
+
+/** 查询所有学生信息 */
+export function searchPage(data) {
+  return request({
+    url: 'student/page',
+    method: 'post',
+    data
+  })
+}
