@@ -11,7 +11,7 @@
         <result column="num" property="num" />
         <result column="name" property="name" />
         <result column="depId" property="depId" />
-        <result column="classId" property="classId" />
+        <result column="class_id" property="classId" />
         <result column="level" property="level" />
         <result column="stuState" property="stuState" />
         <result column="familyAccount" property="familyAccount" />
@@ -29,17 +29,36 @@
         <association property="dep" javaType="com.myc.scholarship.entity.Department">
             <result column="dName" property="name"></result>
         </association>
+        <!--<collection property="listScore" ofType="com.myc.scholarship.entity.Score">-->
+            <!--<result column="score" property="score"></result>-->
+            <!--<association property="subject" javaType="com.myc.scholarship.entity.Subject">-->
+                <!--<result column="fName" property="name"></result>-->
+                <!--<result column="subjectScore" property="subjectScore"></result>-->
+            <!--</association>-->
+        <!--</collection>-->
     </resultMap>
+
+    <!--<select id="selectWithSubject" resultMap="pageMap">-->
+        <!--select a.*,c.name as cName,d.name as dName,-->
+        <!--s.score,f.name as fName,f.subjectScore-->
+        <!--from student a-->
+        <!--left join classroom c on c.id = a.class_id-->
+        <!--left join department d on d.id = a.depId-->
+        <!--left join score s on s.num = a.num-->
+        <!--left join subject f on f.code = s.code-->
+        <!--<where>-->
+            <!--${ew.sqlSegment}-->
+        <!--</where>-->
+    <!--</select>-->
 
     <select id="selectWithClassAndDep" resultMap="pageMap">
         select a.*,c.name as cName,d.name as dName
         from student a
-        left join classroom c on c.id = a.classId
+        left join classroom c on c.id = a.class_id
         left join department d on d.id = a.depId
         <where>
             ${ew.sqlSegment}
         </where>
     </select>
-
 
 </mapper>

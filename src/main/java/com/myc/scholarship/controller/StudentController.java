@@ -36,45 +36,53 @@ public class StudentController implements Serializable {
     @Autowired
     private StudentService studentService;
 
-    @ApiOperation(value = "创建",notes = "创建")
+    @ApiOperation(value = "创建", notes = "创建")
     @PostMapping(value = "/create")
     @ResponseBody
-    public Student create(@RequestBody Student student){
+    public Student create(@RequestBody Student student) {
 
         studentService.insert(student);
         return student;
     }
 
-    @ApiOperation(value = "根据id删除",notes = "根据id删除")
+    @ApiOperation(value = "根据id删除", notes = "根据id删除")
     @DeleteMapping(value = "/del/{id}")
     @ResponseBody
-    public void delete(@RequestBody Long id){
+    public void delete(@RequestBody Long id) {
         studentService.deleteById(id);
     }
 
-    @ApiOperation(value = "修改",notes = "修改")
+    @ApiOperation(value = "修改", notes = "修改")
     @PutMapping(value = "/edit")
     @ResponseBody
-    public Student update(@RequestBody Student student){
+    public Student update(@RequestBody Student student) {
         studentService.updateById(student);
         return student;
     }
 
-    @ApiOperation(value = "获取",notes = "获取")
+    @ApiOperation(value = "获取", notes = "获取")
     @GetMapping(value = "/list")
-    public List<Student> getAll(){
+    public List<Student> getAll() {
         List<Student> students = studentService.selectList(new EntityWrapper<Student>());
         return students;
     }
 
-     @ApiOperation(value = "分页")
-     @PostMapping("/page")
-     public JsonResultEntity page(@RequestBody CommonSearchDto<Student> searchDto) throws JSONException {
-        Page<Student> page = studentService.selectWithClassAndDep(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"name","num","classId"},"a."));
+    @ApiOperation(value = "分页")
+    @PostMapping("/page")
+    public JsonResultEntity page(@RequestBody CommonSearchDto<Student> searchDto) throws JSONException {
+        Page<Student> page = studentService.selectWithClassAndDep(searchDto.getPlusPage(), searchDto.formToEntityWrapperWithSearch(new String[]{"name", "num", "class_id"}, "a."));
         JsonResultEntity resultEntity = JsonResultUtils.success(page);
         return resultEntity;
-     }
     }
+
+//    @ApiOperation(value = "分页查询成绩")
+//    @PostMapping(value = "/pageWithSubject")
+//    public JsonResultEntity pageWithSubject(@RequestBody CommonSearchDto<Student> searchDto) throws JSONException {
+//        Page<Student> pageSubject = studentService.selectWithSubject(searchDto.getPlusPage(), searchDto.formToEntityWrapperWithSearch(new String[]{"name", "class_id"}, "a."));
+//        JsonResultEntity resultEntity = JsonResultUtils.success(pageSubject);
+//        return resultEntity;
+//    }
+}
 //    @ApiOperation(value = "分页",notes = "分页")
 //    @PostMapping(value = "/page")
 //    @ResponseBody

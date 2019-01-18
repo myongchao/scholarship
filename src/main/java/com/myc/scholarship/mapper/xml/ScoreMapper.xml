@@ -8,7 +8,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Score">
         <id column="id" property="id" />
-        <result column="subject" property="subject" />
+        <result column="code" property="code" />
         <result column="score" property="score" />
         <result column="subjectScore" property="subjectScore" />
         <result column="totalScore" property="totalScore" />
@@ -18,5 +18,22 @@
         <result column="status" property="status" />
         <result column="rank" property="rank" />
     </resultMap>
+
+    <resultMap id="pageMap" type="com.myc.scholarship.entity.Score" extends="BaseResultMap">
+        <association property="subject" javaType="com.myc.scholarship.entity.Subject">
+            <result column="code" property="code"></result>
+            <result column="sName" property="name"></result>
+            <result column="subjectScore" property="subjectScore"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectWithSubject" resultMap="pageMap">
+        select a.score,a.name,a.num,a.status,s.name as sName,s.subjectScore,s.code
+        from score a
+        left join subject s on s.code = a.code
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
 
 </mapper>

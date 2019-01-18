@@ -34,7 +34,7 @@ public class Score extends FullAuditedEntity<Score,Long> implements Serializable
     /**
      * 科目
      */
-    private String subject;
+    private String code;
     /**
      * 成绩分数
      */
@@ -70,5 +70,11 @@ public class Score extends FullAuditedEntity<Score,Long> implements Serializable
      * 名次
      */
     private Integer rank;
+
+    @TableField(exist = false)
+    private Subject subject;
+
+    @TableField(exist = false)
+    private Student student;
 
 }

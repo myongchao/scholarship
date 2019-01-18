@@ -102,35 +102,35 @@ export const constantRouterMap = [
       children: [
         {
           path: 'class1',
-          component: () => import('@/views/student/classroom/class1/index'),
+          component: () => import('@/views/student/classroom/class1'),
           name: 'class1',
-          meta: { title: '计科1班', icon: 'form' }
+          meta: { title: '计科一班' }
         },
         {
           path: 'class2',
-          component: () => import('@/views/student/classroom/class2/index'),
+          component: () => import('@/views/student/classroom/class2'),
           name: 'class2',
-          meta: { title: '计科2班', icon: 'form' }
+          meta: { title: '计科二班' }
         }
       ]
     },
     {
-      path: 'grade/index',
+      path: 'grade',
       name: 'grade',
       component: () => import('@/views/student/grade/index'),
       meta: { title: '成绩管理', icon: 'form' },
       children: [
         {
-          path: 'grade/grade1',
-          component: () => import('@/views/student/grade/grade1/grade1'),
-          name: 'class1-1',
-          meta: { title: '计科1班', icon: 'form' }
+          path: 'grade1',
+          component: () => import('@/views/student/grade/grade1'),
+          name: 'grade1',
+          meta: { title: '计科一班' }
         },
         {
-          path: 'grade/grade2',
-          component: () => import('@/views/student/grade/grade2/grade2'),
-          name: 'class1-2',
-          meta: { title: '计科2班', icon: 'form' }
+          path: 'grade2',
+          component: () => import('@/views/student/grade/grade2'),
+          name: 'grade2',
+          meta: { title: '计科二班' }
         }
       ]
     }

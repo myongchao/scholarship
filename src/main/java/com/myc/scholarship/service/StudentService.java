@@ -17,4 +17,6 @@ import com.myc.scholarship.entity.Student;
 public interface StudentService extends IService<Student>{
 
     Page<Student> selectWithClassAndDep(Page<Student> plusPage, Wrapper<Student> formToEntityWrapperWithSearch);
+
+    Page<Student> selectWithSubject(Page<Student> plusPage, Wrapper<Student> formToEntityWrapperWithSearch);
 }

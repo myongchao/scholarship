@@ -15,15 +15,14 @@
     <div class="select">
       <el-table :data="tableData" :key="index">
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
-        <el-table-column prop="num" align="center" label="学号" width="120"/>
-        <el-table-column prop="name" align="center" label="姓名" width="120"/>
-        <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
-        <el-table-column prop="dep.name" align="center" label="院系" width="120"/>
-        <el-table-column prop="familyAccount" align="center" label="家庭户口" width="120"/>
-        <el-table-column prop="familyNum" align="center" label="人口" width="120"/>
-        <el-table-column prop="address" align="center" label="地址" width="120"/>
-        <el-table-column prop="zipCode" align="center" label="邮编" width="120"/>
-        <el-table-column prop="inCome" align="center" label="年收入" width="120"/>
+        <el-table-column prop="num" align="center" label="学号" width="125"/>
+        <el-table-column prop="name" align="center" label="姓名" width="125"/>
+        <el-table-column prop="subject.code" align="center" label="课程编号" width="125"/>
+        <el-table-column prop="subject.name" align="center" label="课程名称" width="125"/>
+        <el-table-column prop="score" align="center" label="期末成绩" width="125"/>
+        <el-table-column prop="score" align="center" label="成绩" width="125"/>
+        <el-table-column prop="upScore" align="center" label="补考成绩" width="125"/>
+        <el-table-column prop="subject.subjectScore" align="center" label="学分" width="125"/>
         <el-table-column
           label="操作"
           align="center"
@@ -42,7 +41,7 @@
 <script>
 
 import page from '@/components/page'
-import { searchPage } from '@/api/student'
+import { pageWithSubject } from '@/api/score'
 export default {
   components: {
     page
@@ -81,7 +80,7 @@ export default {
           name: this.form.name
         }
       }
-      searchPage(this.searchParams).then(e => {
+      pageWithSubject(this.searchParams).then(e => {
         const data = e.data.records
         this.form.page.total = e.data.total
         this.tableData = data

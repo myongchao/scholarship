@@ -19,4 +19,6 @@ import java.util.List;
 public interface StudentMapper extends BaseMapper<Student> {
 
     List selectWithClassAndDep(Page<Student> plusPage,@Param("ew") Wrapper<Student> formToEntityWrapperWithSearch);
+
+    List<Student> selectWithSubject(Page<Student> page,@Param("ew") Wrapper<Student> studentWrapper);
 }

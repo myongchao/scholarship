@@ -8,6 +8,7 @@ import lombok.Lombok;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -83,5 +84,7 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
     private Classroom classroom;
     @TableField(exist = false)
     private Department dep;
+//    @TableField(exist = false)
+//    private List<Score> listScore;
 
 }
