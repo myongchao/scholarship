@@ -107,11 +107,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
    .pwd{
        position: absolute;
        left: 10%;
-       top: 40%;
+       top: 20%;
        transform: translate3d(-50%,-50%,0)
    }
 </style>

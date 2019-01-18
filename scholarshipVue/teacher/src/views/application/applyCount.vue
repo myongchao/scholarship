@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .count{
        border: 1px seashell;
        margin: 10px;

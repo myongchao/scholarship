@@ -103,7 +103,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .manager{
        border: 1px solid seashell;
        margin: 15px;

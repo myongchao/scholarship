@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
    *{
        margin: 0;
        padding: 0;
@@ -71,7 +71,7 @@ export default {
    td{
        border: 0.5px solid #dddddd;
        margin: 5px 5px;
-       border-color: #E4E7ED;
+       border-color: black;
    }
 </style>
 
