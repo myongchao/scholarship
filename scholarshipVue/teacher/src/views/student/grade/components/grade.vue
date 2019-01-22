@@ -15,9 +15,6 @@
     <el-form-item label="补考成绩:" prop="secondScore">
       <el-input v-model="entity.secondScore"/>
     </el-form-item>
-    <!-- <el-form-item label="年收入:" prop="inCome">
-      <el-input v-model="entity.inCome"/>
-    </el-form-item> -->
   </el-form>
 </template>
 
