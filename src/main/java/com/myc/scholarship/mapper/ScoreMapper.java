@@ -19,4 +19,6 @@ import java.util.List;
 public interface ScoreMapper extends BaseMapper<Score> {
 
     List<Score> selectWithSubject(Page<Score> plusPage, @Param("ew") Wrapper<Score> formToEntityWrapperWithSearch);
+
+    Score selectWithStudentById(Long id);
 }

@@ -12,7 +12,7 @@
     <el-form-item label="家庭住址:" prop="address">
       <el-input v-model="entity.address"/>
     </el-form-item>
-    <el-form-item label="邮编:" prop="zipCode">
+    <el-form-item label="邮 编:" prop="zipCode">
       <el-input v-model="entity.zipCode"/>
     </el-form-item>
     <el-form-item label="年收入:" prop="inCome">
@@ -56,6 +56,6 @@ export default {
 </script>
 
 <style>
- /* .student-class{} */
+
 </style>
 

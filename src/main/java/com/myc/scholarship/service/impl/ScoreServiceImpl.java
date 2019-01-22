@@ -27,4 +27,9 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
         plusPage.setRecords(scoreList);
         return plusPage;
     }
+
+    @Override
+    public Score selectWithStudentById(Long id) {
+        return baseMapper.selectWithStudentById(id);
+    }
 }

@@ -8,3 +8,14 @@ export function pageWithSubject(data) {
     data
   })
 }
+
+/** 查询所有学生成绩 */
+export function getScoreWithStudent(id) {
+  return request({
+    url: 'score/get',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}

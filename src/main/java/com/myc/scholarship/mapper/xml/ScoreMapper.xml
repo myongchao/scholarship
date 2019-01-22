@@ -11,7 +11,7 @@
         <result column="code" property="code" />
         <result column="score" property="score" />
         <result column="subjectScore" property="subjectScore" />
-        <result column="totalScore" property="totalScore" />
+        <result column="secondScore" property="secondScore" />
         <result column="name" property="name" />
         <result column="num" property="num" />
         <result column="classId" property="classId" />
@@ -28,12 +28,19 @@
     </resultMap>
 
     <select id="selectWithSubject" resultMap="pageMap">
-        select a.score,a.name,a.num,a.status,s.name as sName,s.subjectScore,s.code
+        select a.id,a.score,a.name,a.num,a.secondScore,a.status,s.name as sName,s.subjectScore,s.code
         from score a
         left join subject s on s.code = a.code
         <where>
             ${ew.sqlSegment}
         </where>
+    </select>
+
+    <select id="selectWithStudentById" resultMap="pageMap">
+        select a.id,a.score,a.secondScore,a.name,a.code,s.name as sName
+        from score a
+        left join subject s on s.code = a.code
+        where a.id = #{id}
     </select>
 
 </mapper>

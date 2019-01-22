@@ -1,9 +1,9 @@
 <template>
   <el-dialog
     :visible.sync="dialogVisible"
-    title="修改学生信息"
+    title="修改成绩信息"
     width="30%">
-    <class ref="form" :eid="eid" :is-edit="true"/>
+    <grade ref="form" :eid="eid" :is-edit="true"/>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="save">确 定</el-button>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import Class from './class'
+import Grade from './grade'
 import { editStudent } from '@/api/student'
 export default {
   components: {
-    Class
+    Grade
   },
   data() {
     return {
@@ -30,7 +30,7 @@ export default {
       editStudent(value).then(e => {
         if (e.success) {
           this.$message({
-            message: '修改学生信息成功',
+            message: '修改学生成绩成功',
             type: 'success'
             // center: true
           })

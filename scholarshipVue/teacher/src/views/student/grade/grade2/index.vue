@@ -21,7 +21,7 @@
         <el-table-column prop="subject.name" align="center" label="课程名称" width="125"/>
         <el-table-column prop="score" align="center" label="期末成绩" width="125"/>
         <el-table-column prop="score" align="center" label="成绩" width="125"/>
-        <el-table-column prop="upScore" align="center" label="补考成绩" width="125"/>
+        <el-table-column prop="secondScore" align="center" label="补考成绩" width="125"/>
         <el-table-column prop="subject.subjectScore" align="center" label="学分" width="125"/>
         <el-table-column
           label="操作"

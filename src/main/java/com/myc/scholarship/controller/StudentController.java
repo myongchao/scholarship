@@ -77,7 +77,6 @@ public class StudentController implements Serializable {
         return resultEntity;
     }
 
-
     @ApiOperation(value = "获取", notes = "获取")
     @GetMapping(value = "/list")
     public List<Student> getAll() {

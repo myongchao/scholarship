@@ -13,7 +13,7 @@
       </template>
     </div>
     <div class="select">
-      <el-table :data="tableData" :key="index">
+      <el-table :data="tableData">
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
         <el-table-column prop="num" align="center" label="学号" width="125"/>
         <el-table-column prop="name" align="center" label="姓名" width="125"/>
@@ -21,30 +21,33 @@
         <el-table-column prop="subject.name" align="center" label="课程名称" width="125"/>
         <el-table-column prop="score" align="center" label="期末成绩" width="125"/>
         <el-table-column prop="score" align="center" label="成绩" width="125"/>
-        <el-table-column prop="upScore" align="center" label="补考成绩" width="125"/>
+        <el-table-column prop="secondScore" align="center" label="补考成绩" width="125"/>
         <el-table-column prop="subject.subjectScore" align="center" label="学分" width="125"/>
         <el-table-column
           label="操作"
           align="center"
         >
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" plain @click="editProfession(scope.row.id)"/>
+            <el-button type="primary" icon="el-icon-edit" plain @click="editGrade(scope.row.id)"/>
             <el-button type="danger" icon="el-icon-delete" plain @click="deleteProfession(scope.$index)"/>
           </template>
         </el-table-column>
       </el-table>
       <page :page="form.page" @changed="getList"/>
     </div>
+    <edit-grade ref="edit" @success="getList"/>
   </div>
 </template>
 
 <script>
 
+import editGrade from '../components/editGrade'
 import page from '@/components/page'
 import { pageWithSubject } from '@/api/score'
 export default {
   components: {
-    page
+    page,
+    editGrade
   },
   data() {
     return {
@@ -85,6 +88,10 @@ export default {
         this.form.page.total = e.data.total
         this.tableData = data
       })
+    },
+    editGrade(id) {
+      // debugger
+      this.$refs.edit.open(id)
     },
     indexMethod(index) {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)

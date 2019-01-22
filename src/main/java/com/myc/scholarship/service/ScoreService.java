@@ -16,4 +16,6 @@ import com.baomidou.mybatisplus.service.IService;
 public interface ScoreService extends IService<Score> {
 
     Page<Score> selectWithSubject(Page<Score> plusPage, Wrapper<Score> formToEntityWrapperWithSearch);
+
+    Score selectWithStudentById(Long id);
 }

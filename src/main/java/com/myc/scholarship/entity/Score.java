@@ -47,8 +47,8 @@ public class Score extends FullAuditedEntity<Score,Long> implements Serializable
     /**
      * 综合成绩
      */
-    @TableField("totalScore")
-    private Double totalScore;
+    @TableField("secondScore")
+    private Integer secondScore;
     /**
      * 学生姓名
      */

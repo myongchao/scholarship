@@ -42,6 +42,15 @@ public class ScoreController implements Serializable {
         return score;
     }
 
+    @ApiOperation(value = "根据Id获取学生信息和成绩")
+    @GetMapping(value = "/get")
+    public JsonResultEntity getWithStudent(@RequestParam("id") Long id){
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        Score score = scoreService.selectWithStudentById(id);
+        resultEntity = JsonResultUtils.success(score);
+        return resultEntity;
+    }
+
     @ApiOperation(value = "修改分数")
     @PostMapping(value = "/edit")
     public Boolean edit(@RequestBody Score score){
