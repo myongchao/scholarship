@@ -39,7 +39,7 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
     /**
      * 班级
      */
-    @TableField("classId")
+    @TableField("class_id")
     private Long classId;
     /**
      * 层次

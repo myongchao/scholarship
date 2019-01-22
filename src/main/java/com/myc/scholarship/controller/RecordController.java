@@ -57,7 +57,7 @@ public class RecordController implements Serializable {
     }
 
     @ApiOperation(value = "分页")
-    @PostMapping("/page")
+    @PostMapping("/pageRecord")
     public JsonResultEntity page(@RequestBody CommonSearchDto<Record> searchDto) throws JSONException {
         JsonResultEntity resultEntity = new JsonResultEntity();
         Page<Record> recordPage = recordService.pageWithAwardAndScore(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"awardId"},"a."));

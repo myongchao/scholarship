@@ -20,9 +20,9 @@
 
 <script>
 import { changePwd } from '@/api/login'
-import { Message } from 'element-ui'
-import Vue from 'vue'
-Vue.use(Message)
+// import { Message } from 'element-ui'
+// import Vue from 'vue'
+// Vue.use(Message)
 export default {
   data() {
     var validateOldPwd = (rule, value, callback) => {

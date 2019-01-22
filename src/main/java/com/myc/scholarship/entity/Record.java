@@ -62,9 +62,6 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
     private Score score;
 
     @TableField(exist = false)
-    private Student student;
-
-    @TableField(exist = false)
     private Classroom classroom;
 
     @TableField(exist = false)

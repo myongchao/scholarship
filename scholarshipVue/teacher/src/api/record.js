@@ -22,7 +22,7 @@ export function update(id, check) {
 
 export function searchWithPage(data) {
   return request({
-    url: '/record/page',
+    url: '/record/pageRecord',
     method: 'post',
     data
   })

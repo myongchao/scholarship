@@ -46,19 +46,37 @@ public class StudentController implements Serializable {
     }
 
     @ApiOperation(value = "根据id删除", notes = "根据id删除")
-    @DeleteMapping(value = "/del/{id}")
+    @PostMapping(value = "/del")
     @ResponseBody
-    public void delete(@RequestBody Long id) {
-        studentService.deleteById(id);
+    public JsonResultEntity delete(@RequestParam("id") Long id) {
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        Boolean success = studentService.deleteById(id);
+        if(success){
+            resultEntity = JsonResultUtils.success(success);
+        }
+        return resultEntity;
     }
 
     @ApiOperation(value = "修改", notes = "修改")
-    @PutMapping(value = "/edit")
+    @PostMapping(value = "/edit")
     @ResponseBody
-    public Student update(@RequestBody Student student) {
-        studentService.updateById(student);
-        return student;
+    public JsonResultEntity update(@RequestBody Student student) {
+        Boolean success = studentService.updateById(student);
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        if(success){
+            resultEntity = JsonResultUtils.success(success);
+        }
+        return resultEntity;
     }
+
+    @ApiOperation(value = "获取单个学生信息", notes = "获取")
+    @GetMapping(value = "/get")
+    public JsonResultEntity get(@RequestParam("id")Long id) {
+        Student student = studentService.selectById(id);
+        JsonResultEntity resultEntity = JsonResultUtils.success(student);
+        return resultEntity;
+    }
+
 
     @ApiOperation(value = "获取", notes = "获取")
     @GetMapping(value = "/list")
@@ -83,17 +101,5 @@ public class StudentController implements Serializable {
 //        return resultEntity;
 //    }
 }
-//    @ApiOperation(value = "分页",notes = "分页")
-//    @PostMapping(value = "/page")
-//    @ResponseBody
-//    public Page<Student> studentPage(@RequestBody PageDto pageDto){
-//        Page<Student> page = new Page<Student>(
-//                pageDto.getCurrent(),
-//                pageDto.getSize(),
-//                pageDto.getOrder(),
-//                false
-//        );
-//       studentService.selectPage(page,new EntityWrapper<Student>());
-//        return page;
-//    }
+
 

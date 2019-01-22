@@ -40,7 +40,8 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
     */
     @Override
     public Page<Record> pageWithAwardAndScore(Page<Record> plusPage, Wrapper<Record> formToEntityWrapperWithSearch) {
-        List<Record> records = this.baseMapper.pageWithAwardAndScore(plusPage,formToEntityWrapperWithSearch.eq("a.isDeleted",false));
+        List<Record> records = this.baseMapper.pageWithAwardAndScore(plusPage,formToEntityWrapperWithSearch.eq("a.isDeleted",false)
+        .groupBy("a.id"));
         plusPage.setRecords(records);
         return plusPage;
     }

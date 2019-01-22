@@ -104,13 +104,13 @@ export default {
 </script>
 
 <style scoped>
+   .manager-page{
+     background-color: #E4E7ED;
+   }
     .manager{
        border: 1px solid seashell;
        margin: 15px;
        text-align: center
-    }
-    body{
-        background-color: #E4E7ED;
     }
     .el-input {
     width: 75%;

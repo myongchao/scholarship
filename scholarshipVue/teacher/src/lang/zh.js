@@ -77,9 +77,9 @@ exports.default = {
       placeholder: 'Select'
     },
     pagination: {
-      goto: '下一页',
+      goto: '前往',
       pagesize: '/页',
-      total: '总页数 {total}',
+      total: '共 {total}条',
       pageClassifier: ''
     },
     messagebox: {
