@@ -9,6 +9,14 @@
           <el-form-item>
             <el-button icon="el-icon-search" type="primary" style="height: 75%;" @click="getList()">搜索</el-button>
           </el-form-item>
+          <div class="operation-button">
+            <el-form-item>
+              <el-button icon="el-icon-plus" type="primary" style="height: 75%;" @click="addClass">添加</el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-button icon="el-icon-upload2" type="primary" style="height: 75%;" @click="importClass">批量添加</el-button>
+            </el-form-item>
+          </div>
         </el-form>
       </template>
     </div>
@@ -37,6 +45,8 @@
       <page :page="form.page" @changed="getList"/>
     </div>
     <edit-class ref="edit" @success="getList"/>
+    <add-class ref="add" @success="getList"/>
+    <import-data ref="imp" @success="onImportSuccess"/>
   </div>
 </template>
 
@@ -45,10 +55,14 @@
 import page from '@/components/page'
 import { searchPage, deleteStudent } from '@/api/student'
 import editClass from '../components/editClass'
+import addClass from '../components/addClass'
+// import importData from '../components/importData'
 export default {
   components: {
     page,
-    editClass
+    editClass,
+    addClass
+    // importData
   },
   data() {
     return {
@@ -90,8 +104,20 @@ export default {
         this.tableData = data
       })
     },
+    addClass() {
+      this.$refs.add.open()
+    },
     editClass(id) {
       this.$refs.edit.open(id)
+    },
+    importClass() {
+      this.$refs.imp.open()
+    },
+    // 实现导入功能
+    onImportSuccess(e) {
+      if (e) {
+        this.getList()
+      }
     },
     deleteClass(index) {
       this.$confirm('很重要的信息，你确定删除吗？', '提示', {
@@ -154,5 +180,8 @@ export default {
       position: absolute;
       right: 15px;
       top: 14px;
+    }
+    .operation-button{
+      float:right
     }
 </style>

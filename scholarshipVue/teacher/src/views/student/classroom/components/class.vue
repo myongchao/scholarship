@@ -35,12 +35,8 @@ export default {
     }
   },
   created() {
-    this.getStudent()
   },
   methods: {
-    getStudent() {
-      console.log(123)
-    },
     load() {
       if (this.isEdit && this.eid) {
         getStudentOne(this.eid).then(e => {

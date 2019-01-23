@@ -1,9 +1,9 @@
 <template>
   <el-dialog
     :visible.sync="dialogVisible"
-    title="修改学生信息"
+    title="添加学生信息"
     width="30%">
-    <class ref="form" :eid="eid" :is-edit="true"/>
+    <new-class ref="form" :is-edit="false"/>
     <div slot="footer" class="dialog-footer">
       <el-button @click="close">取 消</el-button>
       <el-button type="primary" @click="save">确 定</el-button>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import Class from './class'
-import { editStudent } from '@/api/student'
+import newClass from './newClass'
+import { addStudent } from '@/api/student'
 export default {
   components: {
-    Class
+    newClass
   },
   data() {
     return {
@@ -27,10 +27,10 @@ export default {
   methods: {
     save() {
       const value = this.$refs.form.getValue()
-      editStudent(value).then(e => {
+      addStudent(value).then(e => {
         if (e.success) {
           this.$message({
-            message: '修改学生信息成功',
+            message: '添加学生信息成功',
             type: 'success'
             // center: true
           })
@@ -38,12 +38,10 @@ export default {
         }
       })
     },
-    open(id) {
-      this.eid = id
+    open() {
       this.dialogVisible = true
     },
     close() {
-      this.eid = 0
       this.$refs.form.reset()
       this.dialogVisible = false
     }

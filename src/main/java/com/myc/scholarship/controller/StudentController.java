@@ -39,10 +39,15 @@ public class StudentController implements Serializable {
     @ApiOperation(value = "创建", notes = "创建")
     @PostMapping(value = "/create")
     @ResponseBody
-    public Student create(@RequestBody Student student) {
-
-        studentService.insert(student);
-        return student;
+    public JsonResultEntity create(@RequestBody Student student) {
+        int num = (int)(1+Math.random()*100);
+        student.setNum(String.valueOf(num));
+        Boolean success = studentService.insert(student);
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        if(success){
+            resultEntity = JsonResultUtils.success(success);
+        }
+        return resultEntity;
     }
 
     @ApiOperation(value = "根据id删除", notes = "根据id删除")
