@@ -9,6 +9,9 @@
           <el-form-item>
             <el-button icon="el-icon-search" type="primary" style="height: 75%;" @click="getList()">搜索</el-button>
           </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-refresh" type="primary" style="height: 75%;" @click="resetForm('form')">重置</el-button>
+          </el-form-item>
           <div class="operation-button">
             <el-form-item>
               <el-button icon="el-icon-plus" type="primary" style="height: 75%;" @click="addClass">添加</el-button>
@@ -21,7 +24,7 @@
       </template>
     </div>
     <div class="select">
-      <el-table :data="tableData">
+      <el-table v-loading="loading" :data="tableData">
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
         <el-table-column prop="num" align="center" label="学号" width="120"/>
         <el-table-column prop="name" align="center" label="姓名" width="120"/>
@@ -56,13 +59,13 @@ import page from '@/components/page'
 import { searchPage, deleteStudent } from '@/api/student'
 import editClass from '../components/editClass'
 import addClass from '../components/addClass'
-// import importData from '../components/importData'
+import importData from '../components/importData'
 export default {
   components: {
     page,
     editClass,
-    addClass
-    // importData
+    addClass,
+    importData
   },
   data() {
     return {
@@ -88,6 +91,7 @@ export default {
   },
   methods: {
     getList() {
+      this.loading = true
       this.searchParams.page = this.form.page
       this.searchParams.form = {
         classId: 1
@@ -103,6 +107,7 @@ export default {
         this.form.page.total = e.data.total
         this.tableData = data
       })
+      this.loading = false
     },
     addClass() {
       this.$refs.add.open()
@@ -149,6 +154,9 @@ export default {
     },
     indexMethod(index) {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
     }
   }
 

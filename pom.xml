@@ -124,6 +124,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--poi-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>javax.validation</groupId>-->
             <!--<artifactId>validation-api</artifactId>-->
@@ -146,6 +152,9 @@
                     <include>**/*.xml</include>
                 </includes>
                 <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
     </build>

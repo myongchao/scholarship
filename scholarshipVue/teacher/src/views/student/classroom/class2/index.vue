@@ -9,11 +9,22 @@
           <el-form-item>
             <el-button icon="el-icon-search" type="primary" style="height: 75%;" @click="getList()">搜索</el-button>
           </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-refresh" type="primary" style="height: 75%;" @click="resetForm('form')">重置</el-button>
+          </el-form-item>
+          <div class="operation-button">
+            <el-form-item>
+              <el-button icon="el-icon-plus" type="primary" style="height: 75%;" @click="addClass">添加</el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-button icon="el-icon-upload2" type="primary" style="height: 75%;" @click="importClass">批量添加</el-button>
+            </el-form-item>
+          </div>
         </el-form>
       </template>
     </div>
     <div class="select">
-      <el-table :data="tableData">
+      <el-table v-loading="loading" :data="tableData">
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
         <el-table-column prop="num" align="center" label="学号" width="120"/>
         <el-table-column prop="name" align="center" label="姓名" width="120"/>
@@ -37,6 +48,8 @@
       <page :page="form.page" @changed="getList"/>
     </div>
     <edit-class ref="edit" @success="getList"/>
+    <add-class ref="add" @success="getList"/>
+    <import-data ref="imp" @success="onImportSuccess"/>
   </div>
 </template>
 
@@ -45,10 +58,15 @@
 import page from '@/components/page'
 import { searchPage, deleteStudent } from '@/api/student'
 import editClass from '../components/editClass'
+import addClass from '../components/addClass'
+import importData from '../components/importData'
+// import importData from '../components/importData'
 export default {
   components: {
     page,
-    editClass
+    editClass,
+    addClass,
+    importData
   },
   data() {
     return {
@@ -74,6 +92,7 @@ export default {
   },
   methods: {
     getList() {
+      this.loading = true
       this.searchParams.page = this.form.page
       this.searchParams.form = {
         classId: 2
@@ -89,9 +108,22 @@ export default {
         this.form.page.total = e.data.total
         this.tableData = data
       })
+      this.loading = false
+    },
+    addClass() {
+      this.$refs.add.open()
     },
     editClass(id) {
       this.$refs.edit.open(id)
+    },
+    importClass() {
+      this.$refs.imp.open()
+    },
+    // 实现导入功能
+    onImportSuccess(e) {
+      if (e) {
+        this.getList()
+      }
     },
     deleteClass(index) {
       this.$confirm('很重要的信息，你确定删除吗？', '提示', {
@@ -123,6 +155,9 @@ export default {
     },
     indexMethod(index) {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
     }
   }
 
@@ -154,5 +189,8 @@ export default {
       position: absolute;
       right: 15px;
       top: 14px;
+    }
+    .operation-button{
+      float:right
     }
 </style>

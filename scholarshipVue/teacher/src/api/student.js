@@ -8,6 +8,16 @@ export function addStudent(data) {
     data
   })
 }
+/** 批量添加学生信息 */
+export function insertBatches(list) {
+  return request({
+    url: 'student/multipleAdd',
+    method: 'post',
+    data: {
+      data: list
+    }
+  })
+}
 /** 添加学生信息 */
 export function deleteStudent(id) {
   return request({
@@ -45,11 +55,20 @@ export function getStudentList(data) {
   })
 }
 
-/** 查询所有学生信息 */
+/** 分页查询所有学生信息 */
 export function searchPage(data) {
   return request({
     url: 'student/page',
     method: 'post',
+    data
+  })
+}
+
+/** 下载学生上传模板 */
+export function downTemplate(data) {
+  return request({
+    url: 'student/download/template',
+    method: 'get',
     data
   })
 }

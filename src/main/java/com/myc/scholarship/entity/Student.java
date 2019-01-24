@@ -84,6 +84,10 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
     private Classroom classroom;
     @TableField(exist = false)
     private Department dep;
+    @TableField(exist = false)
+    private String className;
+    @TableField(exist = false)
+    private String depName;
 //    @TableField(exist = false)
 //    private List<Score> listScore;
 
