@@ -13,10 +13,10 @@
       <el-table-column min-width="300px" label="辅导员审核状态" align="center" width="250">
         <template slot-scope="scope">
           <template v-if="scope.row.edit">
-            <el-input v-model="scope.row.check2" class="edit-input" size="small"/>
+            <el-input v-model="scope.row.check1" class="edit-input" size="small"/>
             <el-button class="cancel-btn" size="small" icon="el-icon-refresh" type="warning" @click="cancelEdit(scope.row)">取消</el-button>
           </template>
-          <span v-else>{{ scope.row.check2 }}</span>
+          <span v-else>{{ scope.row.check1 }}</span>
         </template>
       </el-table-column>
 
@@ -70,13 +70,13 @@ export default {
         this.tableData = data
         this.tableData = data.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
-          v.originalCheck2 = v.check2 //  will be used when user click the cancel botton
+          v.originalCheck1 = v.check1 //  will be used when user click the cancel botton
           return v
         })
       })
     },
     cancelEdit(row) {
-      row.check2 = row.originalCheck2
+      row.check1 = row.originalCheck1
       row.edit = false
       this.$message({
         message: '审核状态未修改',
@@ -85,8 +85,8 @@ export default {
     },
     confirmEdit(row) {
       row.edit = false
-      row.originalCheck2 = row.check2
-      update(row.id, row.check2).then(e => {
+      row.originalCheck1 = row.check1
+      update(row.id, row.check1).then(e => {
         if (e.data) {
           this.$message({
             message: '审核状态已修改',

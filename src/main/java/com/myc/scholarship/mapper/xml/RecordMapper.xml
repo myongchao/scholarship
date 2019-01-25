@@ -11,7 +11,7 @@
         <result column="name" property="name" />
         <result column="num" property="num" />
         <result column="award_id" property="awardId" />
-        <result column="classId" property="classId"></result>
+        <result column="class_id" property="classId"></result>
         <result column="depId" property="depId"></result>
         <result column="insertTime" property="insertTime" />
         <result column="check1" property="check1" />
@@ -55,7 +55,7 @@
         left join award b on a.award_id = b.id
         left join score c on c.num = a.num
         left join department d on d.id = a.depId
-        left join classroom f on f.id = a.classId
+        left join classroom f on f.id = a.class_id
         <where>
             ${ew.sqlSegment}
         </where>

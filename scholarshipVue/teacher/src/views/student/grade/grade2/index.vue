@@ -9,11 +9,14 @@
           <el-form-item>
             <el-button icon="el-icon-search" type="primary" style="height: 75%;" @click="getList()">搜索</el-button>
           </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-refresh" type="primary" style="height: 75%;" @click="resetForm('form')">重置</el-button>
+          </el-form-item>
         </el-form>
       </template>
     </div>
     <div class="select">
-      <el-table :data="tableData" :key="index">
+      <el-table :data="tableData">
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
         <el-table-column prop="num" align="center" label="学号" width="125"/>
         <el-table-column prop="name" align="center" label="姓名" width="125"/>
@@ -28,23 +31,26 @@
           align="center"
         >
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" plain @click="editProfession(scope.row.id)"/>
-            <el-button type="danger" icon="el-icon-delete" plain @click="deleteProfession(scope.$index)"/>
+            <el-button type="primary" icon="el-icon-edit" plain @click="editGrade(scope.row.id)"/>
+            <el-button type="danger" icon="el-icon-delete" plain @click="deleteGrade(scope.$index)"/>
           </template>
         </el-table-column>
       </el-table>
       <page :page="form.page" @changed="getList"/>
     </div>
+    <edit-grade ref="edit" @success="getList"/>
   </div>
 </template>
 
 <script>
 
+import editGrade from '../components/editGrade'
 import page from '@/components/page'
-import { pageWithSubject } from '@/api/score'
+import { pageWithSubject, deleteScore } from '@/api/score'
 export default {
   components: {
-    page
+    page,
+    editGrade
   },
   data() {
     return {
@@ -85,6 +91,41 @@ export default {
         this.form.page.total = e.data.total
         this.tableData = data
       })
+    },
+    editGrade(id) {
+      // debugger
+      this.$refs.edit.open(id)
+    },
+    deleteGrade(index) {
+      this.$confirm('很重要的信息，你确定删除吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(_ => {
+        deleteScore(this.tableData[index].id).then(e => {
+          if (e.success) {
+            this.getList()
+            this.form.page.total--
+            this.$message({
+              type: 'success',
+              message: '删除成功！'
+            })
+          } else {
+            this.$message({
+              type: 'error',
+              message: '删除失败！'
+            })
+          }
+        })
+      }).catch(_ => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
     },
     indexMethod(index) {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)

@@ -35,7 +35,7 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
     @TableField("award_id")
     private Long awardId;
 
-    @TableField("classId")
+    @TableField("class_id")
     private Long classId;
 
     @TableField("depId")

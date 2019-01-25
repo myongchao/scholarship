@@ -42,6 +42,17 @@ public class ScoreController implements Serializable {
         return score;
     }
 
+    @ApiOperation(value = "删除分数记录")
+    @PostMapping(value = "/del")
+    public JsonResultEntity del(@RequestParam("id")Long id){
+        Boolean success = scoreService.deleteById(id);
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        if(success){
+            resultEntity = JsonResultUtils.success(success);
+        }
+        return resultEntity;
+    }
+
     @ApiOperation(value = "根据Id获取学生信息和成绩")
     @GetMapping(value = "/get")
     public JsonResultEntity getWithStudent(@RequestParam("id") Long id){

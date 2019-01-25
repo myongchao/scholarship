@@ -38,7 +38,7 @@ public class RecordController implements Serializable {
     @ResponseBody
     public JsonResultEntity edit(@RequestParam("id")Long id,@RequestParam("check")String check){
         Record record = recordService.selectById(id);
-        record.setCheck2(check);
+        record.setCheck1(check);
         Boolean success = recordService.updateById(record);
         JsonResultEntity resultEntity = new JsonResultEntity();
         if(success){
@@ -60,7 +60,8 @@ public class RecordController implements Serializable {
     @PostMapping("/pageRecord")
     public JsonResultEntity page(@RequestBody CommonSearchDto<Record> searchDto) throws JSONException {
         JsonResultEntity resultEntity = new JsonResultEntity();
-        Page<Record> recordPage = recordService.pageWithAwardAndScore(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"awardId"},"a."));
+        Page<Record> recordPage = recordService.pageWithAwardAndScore(searchDto.getPlusPage(),
+                searchDto.formToEntityWrapperWithSearch(new String[]{"awardId","classId","check1"},"a."));
         resultEntity = JsonResultUtils.success(recordPage);
         return resultEntity;
     }

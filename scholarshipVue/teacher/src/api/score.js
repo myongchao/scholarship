@@ -19,3 +19,14 @@ export function getScoreWithStudent(id) {
     }
   })
 }
+
+/** 删除单个学生成绩 */
+export function deleteScore(id) {
+  return request({
+    url: 'score/del',
+    method: 'post',
+    params: {
+      id
+    }
+  })
+}

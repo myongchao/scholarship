@@ -23,7 +23,7 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
 
     @Override
     public Page<Score> selectWithSubject(Page<Score> plusPage, Wrapper<Score> formToEntityWrapperWithSearch) {
-        List<Score> scoreList = baseMapper.selectWithSubject(plusPage,formToEntityWrapperWithSearch);
+        List<Score> scoreList = baseMapper.selectWithSubject(plusPage,formToEntityWrapperWithSearch.eq("a.isDeleted",0));
         plusPage.setRecords(scoreList);
         return plusPage;
     }
