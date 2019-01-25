@@ -13,6 +13,10 @@
         <result column="award_id" property="awardId" />
         <result column="class_id" property="classId"></result>
         <result column="depId" property="depId"></result>
+        <result column="total_score" property="totalScore"></result>
+        <result column="total_subject_score" property="totalSubjectScore"></result>
+        <result column="rank" property="rank"></result>
+        <result column="status" property="status"></result>
         <result column="insertTime" property="insertTime" />
         <result column="check1" property="check1" />
         <result column="check2" property="check2" />
@@ -48,12 +52,11 @@
         where a.isDeleted = 0
     </select>
     <select id="pageWithAwardAndScore" resultMap="listMap">
-        select a.id,a.name,a.num,a.insertTime,a.check1,a.check2,
-        b.title,b.bGrade,c.score,c.subjectScore,
+        select a.id,a.name,a.num,a.total_score,a.total_subject_score,a.rank,a.status,a.insertTime,a.check1,a.check2,
+        b.title,b.bGrade,
         d.name as dName,f.name as cName
         from record a
         left join award b on a.award_id = b.id
-        left join score c on c.num = a.num
         left join department d on d.id = a.depId
         left join classroom f on f.id = a.class_id
         <where>

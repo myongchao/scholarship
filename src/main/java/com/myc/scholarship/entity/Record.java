@@ -40,6 +40,16 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
 
     @TableField("depId")
     private Long depId;
+    /** 综合成绩 */
+    @TableField("total_score")
+    private Integer totalScore;
+    /** 综合学分 */
+    @TableField("total_subject_score")
+    private Integer totalSubjectScore;
+    /** 班级排名 */
+    private Integer rank;
+    /** 是否挂科 */
+    private String status;
     /**
      * 申请时间
      */

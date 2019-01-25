@@ -74,10 +74,10 @@ export const constantRouterMap = [
         meta: { title: '申请信息管理', icon: 'form' }
       },
       {
-        path: 'applySelect',
-        name: 'ApplySelect',
-        component: () => import('@/views/application/applySelect'),
-        meta: { title: '申请信息查询', icon: 'form' }
+        path: 'submitApply',
+        name: 'SubmitApply',
+        component: () => import('@/views/application/submitApply'),
+        meta: { title: '提交申请信息', icon: 'form' }
       },
       {
         path: 'applyCount',
@@ -85,6 +85,55 @@ export const constantRouterMap = [
         component: () => import('@/views/application/applyCount'),
         meta: { title: '申请信息统计', icon: 'form' }
       }
+    ]
+  },
+
+  {
+    path: '/student',
+    component: Layout,
+    redirect: '/student',
+    name: 'student',
+    meta: { title: '学生信息管理', icon: 'form' },
+    children: [{
+      path: 'classroom',
+      name: 'classroom',
+      component: () => import('@/views/student/classroom/index'),
+      meta: { title: '学生信息', icon: 'form' },
+      children: [
+        {
+          path: 'class1',
+          component: () => import('@/views/student/classroom/class1'),
+          name: 'class1',
+          meta: { title: '计科一班' }
+        },
+        {
+          path: 'class2',
+          component: () => import('@/views/student/classroom/class2'),
+          name: 'class2',
+          meta: { title: '计科二班' }
+        }
+      ]
+    },
+    {
+      path: 'grade',
+      name: 'grade',
+      component: () => import('@/views/student/grade/index'),
+      meta: { title: '成绩管理', icon: 'form' },
+      children: [
+        {
+          path: 'grade1',
+          component: () => import('@/views/student/grade/grade1'),
+          name: 'grade1',
+          meta: { title: '计科一班' }
+        },
+        {
+          path: 'grade2',
+          component: () => import('@/views/student/grade/grade2'),
+          name: 'grade2',
+          meta: { title: '计科二班' }
+        }
+      ]
+    }
     ]
   },
 
@@ -109,74 +158,74 @@ export const constantRouterMap = [
     ]
   },
 
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2'),
+  //           name: 'Menu1-2',
+  //           meta: { title: 'Menu1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+  //               name: 'Menu1-2-1',
+  //               meta: { title: 'Menu1-2-1' }
+  //             },
+  //             {
+  //               path: 'menu1-2-2',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+  //               name: 'Menu1-2-2',
+  //               meta: { title: 'Menu1-2-2' }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-3',
+  //           component: () => import('@/views/nested/menu1/menu1-3'),
+  //           name: 'Menu1-3',
+  //           meta: { title: 'Menu1-3' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       component: () => import('@/views/nested/menu2/index'),
+  //       meta: { title: 'menu2' }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   { path: '*', redirect: '/404', hidden: true }
 ]

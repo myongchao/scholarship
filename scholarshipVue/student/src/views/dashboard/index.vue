@@ -2,21 +2,28 @@
   <div class="dashboard-container">
     <!-- <div class="dashboard-text">name:{{ name }}</div>
     <div class="dashboard-text">roles:<span v-for="role in roles" :key="role">{{ role }}</span></div> -->
-    <img src="../../assets/1.jpg">
+    <img :src="logo_img">
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import logo_img from '@/assets/1.jpg'
 
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      logo_img
+    }
+  },
   computed: {
     ...mapGetters([
       'name',
       'roles'
     ])
   }
+
 }
 </script>
 

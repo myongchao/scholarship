@@ -10,17 +10,17 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-    //   '/apis': {
-    //   target: 'http://localhost:8082',
-    //   changeOrigin: true,
-    //   pathRewrite: {
-    //     '^/apis': ''
-    //   }
-    // }
+      '/': {
+      target: 'http://localhost:8082',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/apis': ''
+      }
+    }
     },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 9527, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 9529, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: false,
