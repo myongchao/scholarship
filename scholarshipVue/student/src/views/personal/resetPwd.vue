@@ -1,6 +1,14 @@
 <template>
   <div v-show="showPwd" class="pwd">
-    <el-form v-loading="loading" ref="ruleForm" :model="ruleForm" :rules="rules2" status-icon label-width="100px" class="demo-ruleForm">
+    <el-form
+      v-loading="loading"
+      ref="ruleForm"
+      :model="ruleForm"
+      :rules="rules2"
+      status-icon
+      label-width="100px"
+      class="demo-ruleForm"
+      size="small">
       <el-form-item label="原密码" prop="oldPwd">
         <el-input v-model="ruleForm.oldPwd" type="password" />
       </el-form-item>
@@ -11,8 +19,8 @@
         <el-input v-model="ruleForm.checkPass" type="password" autocomplete="off"/>
       </el-form-item>
       <el-form-item>
-        <el-button :plain="true" type="primary" @click="submitForm()">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button :plain="true" type="primary" size="small" @click="submitForm()">提交</el-button>
+        <el-button size="small" @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -108,10 +116,12 @@ export default {
 </script>
 
 <style scoped>
+   .el-input{
+     width: 15%;
+   }
    .pwd{
-       position: absolute;
-       left: 10%;
-       top: 20%;
-       transform: translate3d(-50%,-50%,0)
+     margin-top: 20px;
+     left: 10%;
+    top: 20%;
    }
 </style>

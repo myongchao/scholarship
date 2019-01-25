@@ -88,54 +88,54 @@ export const constantRouterMap = [
     ]
   },
 
-  {
-    path: '/student',
-    component: Layout,
-    redirect: '/student',
-    name: 'student',
-    meta: { title: '学生信息管理', icon: 'form' },
-    children: [{
-      path: 'classroom',
-      name: 'classroom',
-      component: () => import('@/views/student/classroom/index'),
-      meta: { title: '学生信息', icon: 'form' },
-      children: [
-        {
-          path: 'class1',
-          component: () => import('@/views/student/classroom/class1'),
-          name: 'class1',
-          meta: { title: '计科一班' }
-        },
-        {
-          path: 'class2',
-          component: () => import('@/views/student/classroom/class2'),
-          name: 'class2',
-          meta: { title: '计科二班' }
-        }
-      ]
-    },
-    {
-      path: 'grade',
-      name: 'grade',
-      component: () => import('@/views/student/grade/index'),
-      meta: { title: '成绩管理', icon: 'form' },
-      children: [
-        {
-          path: 'grade1',
-          component: () => import('@/views/student/grade/grade1'),
-          name: 'grade1',
-          meta: { title: '计科一班' }
-        },
-        {
-          path: 'grade2',
-          component: () => import('@/views/student/grade/grade2'),
-          name: 'grade2',
-          meta: { title: '计科二班' }
-        }
-      ]
-    }
-    ]
-  },
+  // {
+  //   path: '/student',
+  //   component: Layout,
+  //   redirect: '/student',
+  //   name: 'student',
+  //   meta: { title: '学生信息管理', icon: 'form' },
+  //   children: [{
+  //     path: 'classroom',
+  //     name: 'classroom',
+  //     component: () => import('@/views/student/classroom/index'),
+  //     meta: { title: '学生信息', icon: 'form' },
+  //     children: [
+  //       {
+  //         path: 'class1',
+  //         component: () => import('@/views/student/classroom/class1'),
+  //         name: 'class1',
+  //         meta: { title: '计科一班' }
+  //       },
+  //       {
+  //         path: 'class2',
+  //         component: () => import('@/views/student/classroom/class2'),
+  //         name: 'class2',
+  //         meta: { title: '计科二班' }
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     path: 'grade',
+  //     name: 'grade',
+  //     component: () => import('@/views/student/grade/index'),
+  //     meta: { title: '成绩管理', icon: 'form' },
+  //     children: [
+  //       {
+  //         path: 'grade1',
+  //         component: () => import('@/views/student/grade/grade1'),
+  //         name: 'grade1',
+  //         meta: { title: '计科一班' }
+  //       },
+  //       {
+  //         path: 'grade2',
+  //         component: () => import('@/views/student/grade/grade2'),
+  //         name: 'grade2',
+  //         meta: { title: '计科二班' }
+  //       }
+  //     ]
+  //   }
+  //   ]
+  // },
 
   {
     path: '/personal',
@@ -144,9 +144,9 @@ export const constantRouterMap = [
     name: 'personal',
     meta: { title: '个人信息管理', icon: 'form' },
     children: [{
-      path: 'index',
-      name: 'index',
-      component: () => import('@/views/personal/index'),
+      path: 'userInfo',
+      name: 'userInfo',
+      component: () => import('@/views/personal/userInfo'),
       meta: { title: '个人信息', icon: 'form' }
     },
     {
