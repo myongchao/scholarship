@@ -2,7 +2,7 @@
   <div class="header">
     <div class="components-container">
       <template>
-        <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
+        <el-form ref="form" :inline="true" :model="form" class="demo-form-inline" size="small">
           <el-form-item label="奖学金类型:" prop="awardId">
             <el-select v-model="form.awardId" placeholder="全部" style="height: 20px;">
               <el-option
@@ -21,13 +21,13 @@
                 :value="item.id"/>
             </el-select>
           </el-form-item>
-          <el-form-item label="审核状态:" prop="checked">
-            <el-select v-model="form.checked" placeholder="全部" style="height: 20px;">
+          <el-form-item label="审核状态:" prop="check1">
+            <el-select v-model="form.check1" placeholder="全部" style="height: 20px;">
               <el-option
                 v-for="(item,index) in checks"
                 :key="index"
-                :label="item.checked"
-                :value="item.checked"/>
+                :label="item.check1"
+                :value="item.check1"/>
             </el-select>
           </el-form-item>
           <el-form-item>
@@ -45,8 +45,8 @@
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
         <el-table-column prop="award.title" align="center" label="奖学金名称" width="120"/>
         <el-table-column prop="award.bgrade" align="center" label="奖学金级别" width="120"/>
-        <el-table-column prop="score.score" align="center" label="成绩" width="120"/>
-        <el-table-column prop="score.subjectScore" align="center" label="学分" width="120"/>
+        <el-table-column prop="totalScore" align="center" label="综合成绩" width="120"/>
+        <el-table-column prop="totalSubjectScore" align="center" label="综合学分" width="120"/>
         <el-table-column prop="name" align="center" label="姓名" width="120"/>
         <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
         <el-table-column prop="department.name" align="center" label="院系" width="130"/>
@@ -103,7 +103,7 @@ export default {
       },
       awards: [], // 奖学金列表
       classRoomes: [], // 班级列表
-      checks: [{ id: 1, checked: '通过' }, { id: 2, checked: '不通过' }, { id: 3, checked: '未审核' }],
+      checks: [{ id: 1, check1: '通过' }, { id: 2, check1: '不通过' }, { id: 3, check1: '未审核' }],
       loading: false, // 加载
       tableData: [],
       searchParams: {}
@@ -125,9 +125,9 @@ export default {
           classId: this.form.classId
         }
       }
-      if (this.form.checked !== null) {
+      if (this.form.check1 !== null) {
         this.searchParams.form = {
-          check1: this.form.checked
+          check1: this.form.check1
         }
       }
       if (this.form.classId !== null && this.form.awardId !== null) {
@@ -136,21 +136,21 @@ export default {
           classId: this.form.classId
         }
       }
-      if (this.form.classId !== null && this.form.checked !== null) {
+      if (this.form.classId !== null && this.form.check1 !== null) {
         this.searchParams.form = {
-          check1: this.form.checked,
+          check1: this.form.check1,
           classId: this.form.classId
         }
       }
-      if (this.form.awardId !== null && this.form.checked !== null) {
+      if (this.form.awardId !== null && this.form.check1 !== null) {
         this.searchParams.form = {
-          check1: this.form.checked,
+          check1: this.form.check1,
           awardId: this.form.awardId
         }
       }
-      if (this.form.classId !== null && this.form.awardId !== null && this.form.checked !== null) {
+      if (this.form.classId !== null && this.form.awardId !== null && this.form.check1 !== null) {
         this.searchParams.form = {
-          check1: this.form.checked,
+          check1: this.form.check1,
           awardId: this.form.awardId,
           classId: this.form.classId
         }

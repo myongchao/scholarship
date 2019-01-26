@@ -30,8 +30,8 @@
         <el-table-column :index="indexMethod" type="index" align="center" width="120"/>
         <el-table-column prop="award.title" align="center" label="奖学金名称" width="120"/>
         <el-table-column prop="award.bgrade" align="center" label="奖学金级别" width="120"/>
-        <el-table-column prop="score.score" align="center" label="成绩" width="120"/>
-        <el-table-column prop="score.subjectScore" align="center" label="学分" width="120"/>
+        <el-table-column prop="totalScore" align="center" label="综合成绩" width="120"/>
+        <el-table-column prop="totalSubjectScore" align="center" label="综合学分" width="120"/>
         <el-table-column prop="name" align="center" label="姓名" width="120"/>
         <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
         <el-table-column prop="department.name" align="center" label="院系" width="130"/>

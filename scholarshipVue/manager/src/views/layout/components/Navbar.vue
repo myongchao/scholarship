@@ -13,7 +13,7 @@
             首页
           </el-dropdown-item>
         </router-link>
-        <router-link class="inlineBlock" to="/personal/index">
+        <router-link class="inlineBlock" to="/personal/userInfo">
           <el-dropdown-item>
             个人信息
           </el-dropdown-item>

@@ -144,9 +144,9 @@ export const constantRouterMap = [
     name: 'personal',
     meta: { title: '个人信息管理', icon: 'form' },
     children: [{
-      path: 'index',
-      name: 'index',
-      component: () => import('@/views/personal/index'),
+      path: 'userInfo',
+      name: 'userInfo',
+      component: () => import('@/views/personal/userInfo'),
       meta: { title: '个人信息', icon: 'form' }
     },
     {
