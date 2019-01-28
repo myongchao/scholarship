@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myc.scholarship.mapper.TeacherMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Teacher">
+        <id column="id" property="id" />
+        <result column="num" property="num"></result>
+        <result column="pwd" property="pwd"></result>
+        <result column="name" property="name" />
+        <result column="sex" property="sex"></result>
+        <result column="contact" property="contact"></result>
+        <result column="classId" property="classId" />
+        <result column="depId" property="depId" />
+        <result column="insertTime" property="insertTime"></result>
+    </resultMap>
+
+    <resultMap id="pageMap" type="com.myc.scholarship.entity.Teacher" extends="BaseResultMap">
+        <association property="classroom" javaType="com.myc.scholarship.entity.Classroom">
+            <result column="cName" property="name"></result>
+        </association>
+        <association property="dep" javaType="com.myc.scholarship.entity.Department">
+            <result column="dName" property="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectWithClassWithDep" resultMap="pageMap">
+        select a.id,a.num,a.pwd,a.name,a.sex,a.contact,a.classId,a.depId,a.insertTime,c.name as cName,d.name as dName
+        from teacher a
+        left join classroom c on a.classId = c.id
+        left join department d on a.depId = d.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+
+</mapper>

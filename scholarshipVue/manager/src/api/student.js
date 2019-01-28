@@ -18,7 +18,7 @@ export function insertBatches(list) {
     }
   })
 }
-/** 添加学生信息 */
+/** 删除学生信息 */
 export function deleteStudent(id) {
   return request({
     url: 'student/del',
@@ -36,7 +36,7 @@ export function editStudent(data) {
     data
   })
 }
-/** 查询所有学生信息 */
+/** 获取单个学生信息 */
 export function getStudentOne(id) {
   return request({
     url: 'student/get',

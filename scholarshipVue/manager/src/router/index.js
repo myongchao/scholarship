@@ -39,51 +39,57 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/applyIndicators',
+    path: '/teacher',
     component: Layout,
-    redirect: '/applyIndicators',
-    name: 'applyIndicators',
-    meta: { title: '申请指标管理', icon: 'example' },
+    redirect: '/teacher/teacherManager',
+    name: 'teacher',
+    meta: { title: '教师用户管理', icon: 'form' },
     children: [
       {
-        path: 'applyIndicatorView',
-        name: 'ApplyIndicatorView',
-        component: () => import('@/views/applyIndicators/applyIndicatorView'),
-        meta: { title: '申请指标查看', icon: 'table' }
+        path: 'teacherManager',
+        name: 'TeacherManager',
+        component: () => import('@/views/teacher/teacherManager'),
+        meta: { title: '教师用户管理', icon: 'form' }
       },
       {
-        path: 'applyIndicatorSelect',
-        name: 'ApplyIndicatorSelect',
-        component: () => import('@/views/applyIndicators/applyIndicatorSelect'),
-        meta: { title: '申请指标查询', icon: 'tree' }
+        path: 'addTeacher',
+        name: 'AddTeacher',
+        component: () => import('@/views/teacher/addTeacher'),
+        meta: { title: '增加教师用户', icon: 'form' }
+      },
+      {
+        path: 'teacherSelect',
+        name: 'TeacherSelect',
+        component: () => import('@/views/teacher/teacherSelect'),
+        meta: { title: '教师用户查询', icon: 'form' }
       }
     ]
   },
 
   {
-    path: '/application',
+    path: '/classroom',
     component: Layout,
-    redirect: '/application/applyManager',
-    name: 'application',
-    meta: { title: '申请信息管理', icon: 'form' },
+    redirect: '/classroom/classroomManager',
+    name: 'classroom',
+    meta: { title: '班级信息管理', icon: 'form' },
     children: [
       {
-        path: 'applyManager',
-        name: 'ApplyManager',
-        component: () => import('@/views/application/applyManager'),
-        meta: { title: '申请信息管理', icon: 'form' }
+        path: 'classroomManager',
+        name: 'ClassroomManager',
+        component: () => import('@/views/classroom/classroomManager'),
+        meta: { title: '班级信息管理', icon: 'form' }
       },
       {
-        path: 'applySelect',
-        name: 'ApplySelect',
-        component: () => import('@/views/application/applySelect'),
-        meta: { title: '申请信息查询', icon: 'form' }
+        path: 'addClassroom',
+        name: 'AddClassroom',
+        component: () => import('@/views/classroom/addClassroom'),
+        meta: { title: '增加班级信息', icon: 'form' }
       },
       {
-        path: 'applyCount',
-        name: 'ApplyCount',
-        component: () => import('@/views/application/applyCount'),
-        meta: { title: '申请信息统计', icon: 'form' }
+        path: 'classroomSelect',
+        name: 'ClassroomSelect',
+        component: () => import('@/views/classroom/classroomSelect'),
+        meta: { title: '班级信息查询', icon: 'form' }
       }
     ]
   },
@@ -134,6 +140,62 @@ export const constantRouterMap = [
         }
       ]
     }
+    ]
+  },
+
+  {
+    path: '/applyIndicators',
+    component: Layout,
+    redirect: '/applyIndicators',
+    name: 'applyIndicators',
+    meta: { title: '申请指标管理', icon: 'example' },
+    children: [
+      {
+        path: 'applyIndicatorManager',
+        name: 'ApplyIndicatorManager',
+        component: () => import('@/views/applyIndicators/applyIndicatorManager'),
+        meta: { title: '申请指标管理', icon: 'table' }
+      },
+      {
+        path: 'applyIndicatorView',
+        name: 'ApplyIndicatorView',
+        component: () => import('@/views/applyIndicators/applyIndicatorView'),
+        meta: { title: '申请指标查看', icon: 'table' }
+      },
+      {
+        path: 'applyIndicatorSelect',
+        name: 'ApplyIndicatorSelect',
+        component: () => import('@/views/applyIndicators/applyIndicatorSelect'),
+        meta: { title: '申请指标查询', icon: 'tree' }
+      }
+    ]
+  },
+
+  {
+    path: '/application',
+    component: Layout,
+    redirect: '/application/applyManager',
+    name: 'application',
+    meta: { title: '申请信息管理', icon: 'form' },
+    children: [
+      {
+        path: 'applyManager',
+        name: 'ApplyManager',
+        component: () => import('@/views/application/applyManager'),
+        meta: { title: '申请信息管理', icon: 'form' }
+      },
+      {
+        path: 'applySelect',
+        name: 'ApplySelect',
+        component: () => import('@/views/application/applySelect'),
+        meta: { title: '申请信息查询', icon: 'form' }
+      },
+      {
+        path: 'applyCount',
+        name: 'ApplyCount',
+        component: () => import('@/views/application/applyCount'),
+        meta: { title: '申请信息统计', icon: 'form' }
+      }
     ]
   },
 
