@@ -20,12 +20,22 @@ export function addTeacher(list) {
   })
 }
 
-/** 添加教师信息 */
+/**  */
 export function pageTeacher(data) {
   return request({
     url: 'teacher/pageTeacher',
     method: 'post',
     data
+  })
+}
+
+export function getTeacherList(data) {
+  return request({
+    url: 'teacher/list',
+    method: 'get',
+    params: {
+      data
+    }
   })
 }
 

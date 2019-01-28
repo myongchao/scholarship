@@ -1,5 +1,7 @@
 package com.myc.scholarship.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.Classroom;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ClassroomService extends IService<Classroom> {
 
+    Page<Classroom> selectPageWithTeacher(Page<Classroom> plusPage, Wrapper<Classroom> formToEntityWrapperWithSearch);
 }

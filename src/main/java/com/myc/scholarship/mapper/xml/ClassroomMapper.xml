@@ -9,6 +9,29 @@
     <resultMap id="BaseResultMap" type="com.myc.scholarship.entity.Classroom">
         <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="teacher_id" property="teacherId"></result>
+        <result column="places" property="places"></result>
+        <result column="dep_id" property="depId"></result>
     </resultMap>
+
+    <resultMap id="pageMap" type="com.myc.scholarship.entity.Classroom" extends="BaseResultMap">
+        <association property="teacher" javaType="com.myc.scholarship.entity.Teacher">
+            <result column="tName" property="name"></result>
+            <result column="contact" property="contact"></result>
+        </association>
+        <association property="department" javaType="com.myc.scholarship.entity.Department">
+            <result column="dName" property="name"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectPageWithTeacher" resultMap="pageMap">
+        select a.id,a.name,a.teacher_id,a.places,t.name as tName,t.contact,d.name as dName
+        from classroom a
+        left join teacher t on a.teacher_id = t.id
+        left join department d on a.dep_id = d.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
 
 </mapper>

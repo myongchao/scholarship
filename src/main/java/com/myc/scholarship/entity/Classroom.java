@@ -32,4 +32,17 @@ public class Classroom extends FullAuditedEntity<Classroom,Long> implements Seri
      */
     private String name;
 
+    @TableField("teacher_id")
+    private Long teacherId;
+
+    @TableField("dep_id")
+    private Long depId;
+    private Integer places;
+
+    @TableField(exist = false)
+    private Teacher teacher;
+
+    @TableField(exist = false)
+    private Department department;
+
 }

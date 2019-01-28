@@ -1,6 +1,7 @@
 package com.myc.scholarship.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.Teacher;
 import com.myc.scholarship.entity.User;
@@ -71,7 +72,7 @@ public class TeacherController {
         return resultEntity;
     }
 
-    @ApiOperation(value = "获取单个教师信息")
+    @ApiOperation(value = "删除单个教师信息")
     @PostMapping(value = "del")
     public JsonResultEntity del(@RequestParam("id")Long id){
         JsonResultEntity resultEntity = new JsonResultEntity();
@@ -88,11 +89,19 @@ public class TeacherController {
         return resultEntity;
     }
 
-    @ApiOperation(value = "获取单个教师信息")
+    @ApiOperation(value = "编辑单个教师信息")
     @PostMapping(value = "edit")
     public JsonResultEntity edit(@RequestBody Teacher teacher){
         JsonResultEntity resultEntity = new JsonResultEntity();
         resultEntity = JsonResultUtils.success(teacherService.updateById(teacher));
+        return resultEntity;
+    }
+
+    @ApiOperation(value = "获取教师信息列表")
+    @GetMapping(value = "list")
+    public JsonResultEntity list(){
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        resultEntity = JsonResultUtils.success(teacherService.selectList(new EntityWrapper<>()));
         return resultEntity;
     }
 
