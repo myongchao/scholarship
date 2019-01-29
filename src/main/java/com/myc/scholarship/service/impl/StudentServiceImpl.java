@@ -7,11 +7,13 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.myc.scholarship.entity.Classroom;
 import com.myc.scholarship.entity.Department;
 import com.myc.scholarship.entity.Student;
+import com.myc.scholarship.entity.Teacher;
 import com.myc.scholarship.entity.dto.ImportStudentDto;
 import com.myc.scholarship.mapper.StudentMapper;
 import com.myc.scholarship.service.ClassroomService;
 import com.myc.scholarship.service.DepartmentService;
 import com.myc.scholarship.service.StudentService;
+import com.myc.scholarship.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
     @Autowired
     private ClassroomService classroomService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     @Autowired
     private Validator defaultValidator;
@@ -91,24 +96,26 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
             List<String> errorField = createByReflect(studentDto,fields,data);
             //验证返回列中是否存在
             //数据库重复检验
-            if(studentDto.getName() != null && studentDto.getDepName()!= null && studentDto.getClassName() != null){
+            if(studentDto.getName() != null && studentDto.getDepName()!= null && studentDto.getClassName() != null && studentDto.getTeacherName() != null){
                 Boolean exit = studentDtos.stream().filter(b -> studentDto.getName().equals(b.getName())
                          && studentDto.getDepName().equals(b.getDepName()) && studentDto.getClassName().equals(b.getClassName()) ).count() > 0;
                 if(exit) {continue;} //存在就直接跳出
                 Department department = departmentService.selectOne(new EntityWrapper().eq("name",studentDto.getDepName()));
                 Classroom classroom = classroomService.selectOne(new EntityWrapper<Classroom>().eq("name",studentDto.getClassName()));
-                if(department == null || classroom == null){
+                Teacher teacher = teacherService.selectOne(new EntityWrapper<Teacher>().eq("name",studentDto.getTeacherName()));
+                if(department == null || classroom == null || teacher == null){
                     studentDto.setSuccess(true);
-                    tips.add("本校不存在"+studentDto.getDepName()+"院系"+"或者"+ studentDto.getClassName()+"不存在");
+                    tips.add("本校不存在"+studentDto.getDepName()+"院系"+"或者"+ studentDto.getClassName()+"不存在"+"或者"+ studentDto.getTeacherName()+"不存在");
                 }else {
                     exit = students.stream().filter(b -> studentDto.getName().equals(b.getName())
-                            && department.getId().equals(b.getDepId()) && classroom.getId().equals(b.getClassId())).count() > 0;
+                            && department.getId().equals(b.getDepId()) && classroom.getId().equals(b.getClassId())&& teacher.getId().equals(b.getTeacherId())).count() > 0;
                     if (exit) {
                         studentDto.setSuccess(true);
-                        tips.add(studentDto.getDepName() + "院系"+studentDto.getClassName() +"班级中" + studentDto.getName() + "学生信息已存在");
+                        tips.add(studentDto.getDepName() + "院系"+studentDto.getTeacherName()+"老师管理的"+studentDto.getClassName() +"班级中" + studentDto.getName() + "学生信息已存在");
                     }
                     studentDto.setDepId(department.getId());
                     studentDto.setClassId(classroom.getId());
+                    studentDto.setTeacherId(teacher.getId());
                 }
             }
 

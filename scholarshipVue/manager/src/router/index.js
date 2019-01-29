@@ -97,51 +97,79 @@ export const constantRouterMap = [
   {
     path: '/student',
     component: Layout,
-    redirect: '/student',
+    redirect: '/student/studentManager',
     name: 'student',
     meta: { title: '学生信息管理', icon: 'form' },
-    children: [{
-      path: 'classroom',
-      name: 'classroom',
-      component: () => import('@/views/student/classroom/index'),
-      meta: { title: '学生信息', icon: 'form' },
-      children: [
-        {
-          path: 'class1',
-          component: () => import('@/views/student/classroom/class1'),
-          name: 'class1',
-          meta: { title: '计科一班' }
-        },
-        {
-          path: 'class2',
-          component: () => import('@/views/student/classroom/class2'),
-          name: 'class2',
-          meta: { title: '计科二班' }
-        }
-      ]
-    },
-    {
-      path: 'grade',
-      name: 'grade',
-      component: () => import('@/views/student/grade/index'),
-      meta: { title: '成绩管理', icon: 'form' },
-      children: [
-        {
-          path: 'grade1',
-          component: () => import('@/views/student/grade/grade1'),
-          name: 'grade1',
-          meta: { title: '计科一班' }
-        },
-        {
-          path: 'grade2',
-          component: () => import('@/views/student/grade/grade2'),
-          name: 'grade2',
-          meta: { title: '计科二班' }
-        }
-      ]
-    }
+    children: [
+      {
+        path: 'studentManager',
+        name: 'StudentManager',
+        component: () => import('@/views/student/studentManager'),
+        meta: { title: '学生信息管理', icon: 'form' }
+      },
+      {
+        path: 'addStudent',
+        name: 'AddStudent',
+        component: () => import('@/views/student/addStudent'),
+        meta: { title: '增加学生信息', icon: 'form' }
+      },
+      {
+        path: 'studentSelect',
+        name: 'StudentSelect',
+        component: () => import('@/views/student/studentSelect'),
+        meta: { title: '学生信息查询', icon: 'form' }
+      }
     ]
   },
+
+  // {
+  //   path: '/student',
+  //   component: Layout,
+  //   redirect: '/student',
+  //   name: 'student',
+  //   meta: { title: '学生信息管理', icon: 'form' },
+  //   children: [{
+  //     path: 'classroom',
+  //     name: 'classroom',
+  //     component: () => import('@/views/student/classroom/index'),
+  //     meta: { title: '学生信息', icon: 'form' },
+  //     children: [
+  //       {
+  //         path: 'class1',
+  //         component: () => import('@/views/student/classroom/class1'),
+  //         name: 'class1',
+  //         meta: { title: '计科一班' }
+  //       },
+  //       {
+  //         path: 'class2',
+  //         component: () => import('@/views/student/classroom/class2'),
+  //         name: 'class2',
+  //         meta: { title: '计科二班' }
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     path: 'grade',
+  //     name: 'grade',
+  //     component: () => import('@/views/student/grade/index'),
+  //     meta: { title: '成绩管理', icon: 'form' },
+  //     children: [
+  //       {
+  //         path: 'grade1',
+  //         component: () => import('@/views/student/grade/grade1'),
+  //         name: 'grade1',
+  //         meta: { title: '计科一班' }
+  //       },
+  //       {
+  //         path: 'grade2',
+  //         component: () => import('@/views/student/grade/grade2'),
+  //         name: 'grade2',
+  //         meta: { title: '计科二班' }
+  //       }
+  //     ]
+  //   }
+  //   ]
+  // },
 
   {
     path: '/applyIndicators',
@@ -157,10 +185,10 @@ export const constantRouterMap = [
         meta: { title: '申请指标管理', icon: 'table' }
       },
       {
-        path: 'applyIndicatorView',
-        name: 'ApplyIndicatorView',
-        component: () => import('@/views/applyIndicators/applyIndicatorView'),
-        meta: { title: '申请指标查看', icon: 'table' }
+        path: 'addApplyIndicator',
+        name: 'AddApplyIndicator',
+        component: () => import('@/views/applyIndicators/addApplyIndicator'),
+        meta: { title: '添加申请指标', icon: 'table' }
       },
       {
         path: 'applyIndicatorSelect',

@@ -4,21 +4,26 @@
       <div class="submit">
         <template>
           <el-form ref="form" :model="form" :rules="rules" class="demo-form-inline" size="small">
-            <el-form-item label="班级名称:" prop="name">
-              <el-input v-model="form.name"/>
+            <el-form-item label="奖学金名称:" prop="title">
+              <el-input v-model="form.title"/>
             </el-form-item>
-            <el-form-item label="所属院系:" prop="depId">
-              <el-select v-model="form.depId" placeholder="全部">
-                <el-option v-for="(item,index) in depList" :key="index" :label="item.name" :value="item.id"/>
-              </el-select>
+            <el-form-item label="奖学金级别:" prop="bgrade">
+              <el-input v-model="form.bgrade"/>
             </el-form-item>
-            <el-form-item label="最大名额:" prop="places">
-              <el-input v-model="form.places"/>
+            <el-form-item label="奖学金金额:" prop="amount">
+              <el-input v-model="form.amount"/>
             </el-form-item>
-            <el-form-item label="负责教师:" prop="teacherId">
-              <el-select v-model="form.teacherId" placeholder="全部">
-                <el-option v-for="(item,index) in teacherList" :key="index" :label="item.name" :value="item.id"/>
-              </el-select>
+            <el-form-item label="最低成绩:" prop="minScore">
+              <el-input v-model="form.minScore"/>
+            </el-form-item>
+            <el-form-item label="最低学分:" prop="subjectScore">
+              <el-input v-model="form.subjectScore"/>
+            </el-form-item>
+            <el-form-item label="班级排名:" prop="rank">
+              <el-input v-model="form.rank"/>
+            </el-form-item>
+            <el-form-item label="挂科要求:" prop="status">
+              <el-input v-model="form.status"/>
             </el-form-item>
             <el-form-item class="btn">
               <el-button :plain="true" type="primary" @click="submitForm('form')">提交</el-button>
@@ -32,9 +37,7 @@
 </template>
 
 <script>
-import { addClass } from '@/api/class'
-import { getDepList } from '@/api/department'
-import { getTeacherList } from '@/api/teacher'
+import { addAward } from '@/api/award'
 export default {
   data() {
     return {
@@ -54,41 +57,37 @@ export default {
       depList: [],
       teacherList: [],
       rules: {
-        depId: [
-          { required: true, message: '请选择所在院系', trigger: 'change' }
+        title: [
+          { required: true, message: '请输入奖学金名称', trigger: 'blur' }
         ],
-        name: [
-          { required: true, message: '请输入班级名称', trigger: 'blur' }
+        bgrade: [
+          { required: true, message: '请输入奖学金级别', trigger: 'blur' }
         ],
-        places: [
-          { required: true, message: '请输入最大名额', trigger: 'blur' }
+        amount: [
+          { required: true, message: '请输入奖学金金额', trigger: 'blur' }
         ],
-        teacherId: [
-          { required: true, message: '请选择负责教师', trigger: 'blur' }
+        minScore: [
+          { required: true, message: '请输入最低分数', trigger: 'blur' }
+        ],
+        subjectScore: [
+          { required: true, message: '请输入最低学分', trigger: 'blur' }
+        ],
+        rank: [
+          { required: true, message: '请输入班级排名', trigger: 'blur' }
+        ],
+        status: [
+          { required: true, message: '请输入挂科要求', trigger: 'blur' }
         ]
       }
     }
   },
   created() {
-    this.getList()
   },
   methods: {
-    getList() {
-      // 获取院系列表
-      getDepList().then(e => {
-        if (e.data) {
-          this.depList = e.data
-        }
-      })
-      getTeacherList().then(e => {
-        this.teacherList = e.data
-      })
-    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          debugger
-          addClass(this.form).then(e => {
+          addAward(this.form).then(e => {
             if (e.success && e.data === '') {
               this.$message({
                 type: 'success',
@@ -111,8 +110,6 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-    close() {
-    },
     indexMethod(index) {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)
     }
@@ -130,7 +127,7 @@ export default {
   }
   .components-container{
     width: 100%;
-    height: 300px;
+    height: 450px;
     margin:20px;
     background-color: #fff;
   }

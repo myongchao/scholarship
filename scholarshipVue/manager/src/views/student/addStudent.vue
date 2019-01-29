@@ -4,21 +4,41 @@
       <div class="submit">
         <template>
           <el-form ref="form" :model="form" :rules="rules" class="demo-form-inline" size="small">
-            <el-form-item label="班级名称:" prop="name">
+            <el-form-item label="学号(工号):" prop="num">
+              <el-input v-model="form.num"/>
+            </el-form-item>
+            <el-form-item label="学生姓名:" prop="name">
               <el-input v-model="form.name"/>
+            </el-form-item>
+            <el-form-item label="班级名称:" prop="classId">
+              <el-select v-model="form.classId" placeholder="全部">
+                <el-option v-for="(item,index) in classList" :key="index" :label="item.name" :value="item.id"/>
+              </el-select>
             </el-form-item>
             <el-form-item label="所属院系:" prop="depId">
               <el-select v-model="form.depId" placeholder="全部">
                 <el-option v-for="(item,index) in depList" :key="index" :label="item.name" :value="item.id"/>
               </el-select>
             </el-form-item>
-            <el-form-item label="最大名额:" prop="places">
-              <el-input v-model="form.places"/>
-            </el-form-item>
             <el-form-item label="负责教师:" prop="teacherId">
               <el-select v-model="form.teacherId" placeholder="全部">
                 <el-option v-for="(item,index) in teacherList" :key="index" :label="item.name" :value="item.id"/>
               </el-select>
+            </el-form-item>
+            <el-form-item label="家庭户口:" prop="familyAccount">
+              <el-input v-model="form.familyAccount"/>
+            </el-form-item>
+            <el-form-item label="家庭人口:" prop="familyNum">
+              <el-input v-model="form.familyNum"/>
+            </el-form-item>
+            <el-form-item label="家庭地址:" prop="address">
+              <el-input v-model="form.address"/>
+            </el-form-item>
+            <el-form-item label="所在地邮编:" prop="zipCode">
+              <el-input v-model="form.zipCode"/>
+            </el-form-item>
+            <el-form-item label="年收入:" prop="inCome">
+              <el-input v-model="form.inCome"/>
             </el-form-item>
             <el-form-item class="btn">
               <el-button :plain="true" type="primary" @click="submitForm('form')">提交</el-button>
@@ -32,9 +52,10 @@
 </template>
 
 <script>
-import { addClass } from '@/api/class'
+import { getClassList } from '@/api/class'
 import { getDepList } from '@/api/department'
 import { getTeacherList } from '@/api/teacher'
+import { addStudent } from '@/api/student'
 export default {
   data() {
     return {
@@ -51,17 +72,36 @@ export default {
       },
       loading: false, // 加载
       tableData: [],
+      classList: [],
       depList: [],
       teacherList: [],
       rules: {
-        depId: [
-          { required: true, message: '请选择所在院系', trigger: 'change' }
+        num: [
+          { required: true, message: '请输入学生学号', trigger: 'blur' }
         ],
         name: [
-          { required: true, message: '请输入班级名称', trigger: 'blur' }
+          { required: true, message: '请输入学生姓名', trigger: 'blur' }
         ],
-        places: [
-          { required: true, message: '请输入最大名额', trigger: 'blur' }
+        familyAccount: [
+          { required: true, message: '请输入家庭户口', trigger: 'blur' }
+        ],
+        familyNum: [
+          { required: true, message: '请输入家庭人数', trigger: 'blur' }
+        ],
+        address: [
+          { required: true, message: '请输入家庭住址', trigger: 'blur' }
+        ],
+        zipCode: [
+          { required: true, message: '请输入邮编', trigger: 'blur' }
+        ],
+        inCome: [
+          { required: true, message: '请输入家庭年收入', trigger: 'blur' }
+        ],
+        classId: [
+          { required: true, message: '请选择班级', trigger: 'blur' }
+        ],
+        depId: [
+          { required: true, message: '请选择所在院系', trigger: 'change' }
         ],
         teacherId: [
           { required: true, message: '请选择负责教师', trigger: 'blur' }
@@ -74,6 +114,9 @@ export default {
   },
   methods: {
     getList() {
+      getClassList().then(e => {
+        this.classList = e.data
+      })
       // 获取院系列表
       getDepList().then(e => {
         if (e.data) {
@@ -87,12 +130,11 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          debugger
-          addClass(this.form).then(e => {
+          addStudent(this.form).then(e => {
             if (e.success && e.data === '') {
               this.$message({
                 type: 'success',
-                message: '添加班级信息成功！'
+                message: '添加学生信息成功！'
               })
               this.$refs.form.resetFields()
             } else {
@@ -130,7 +172,7 @@ export default {
   }
   .components-container{
     width: 100%;
-    height: 300px;
+    height: 600px;
     margin:20px;
     background-color: #fff;
   }

@@ -12,14 +12,12 @@
         <result column="name" property="name" />
         <result column="depId" property="depId" />
         <result column="class_id" property="classId" />
-        <result column="level" property="level" />
-        <result column="stuState" property="stuState" />
+        <result column="teacher_id" property="teacherId"></result>
         <result column="familyAccount" property="familyAccount" />
         <result column="familyNum" property="familyNum" />
         <result column="address" property="address" />
         <result column="zipCode" property="zipCode" />
         <result column="inCome" property="inCome" />
-        <result column="inComeFrom" property="inComeFrom" />
     </resultMap>
 
     <resultMap id="pageMap" type="com.myc.scholarship.entity.Student" extends="BaseResultMap">
@@ -29,33 +27,17 @@
         <association property="dep" javaType="com.myc.scholarship.entity.Department">
             <result column="dName" property="name"></result>
         </association>
-        <!--<collection property="listScore" ofType="com.myc.scholarship.entity.Score">-->
-            <!--<result column="score" property="score"></result>-->
-            <!--<association property="subject" javaType="com.myc.scholarship.entity.Subject">-->
-                <!--<result column="fName" property="name"></result>-->
-                <!--<result column="subjectScore" property="subjectScore"></result>-->
-            <!--</association>-->
-        <!--</collection>-->
+        <association property="teacher" javaType="com.myc.scholarship.entity.Teacher">
+            <result column="tName" property="name"></result>
+        </association>
     </resultMap>
 
-    <!--<select id="selectWithSubject" resultMap="pageMap">-->
-        <!--select a.*,c.name as cName,d.name as dName,-->
-        <!--s.score,f.name as fName,f.subjectScore-->
-        <!--from student a-->
-        <!--left join classroom c on c.id = a.class_id-->
-        <!--left join department d on d.id = a.depId-->
-        <!--left join score s on s.num = a.num-->
-        <!--left join subject f on f.code = s.code-->
-        <!--<where>-->
-            <!--${ew.sqlSegment}-->
-        <!--</where>-->
-    <!--</select>-->
-
     <select id="selectWithClassAndDep" resultMap="pageMap">
-        select a.*,c.name as cName,d.name as dName
+        select a.*,c.name as cName,d.name as dName,t.name as tName
         from student a
         left join classroom c on c.id = a.class_id
         left join department d on d.id = a.depId
+        left join teacher t on a.teacher_id = t.id
         <where>
             ${ew.sqlSegment}
         </where>

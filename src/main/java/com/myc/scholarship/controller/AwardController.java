@@ -39,36 +39,38 @@ public class AwardController implements Serializable{
     private AwardService awardService;
 
     @ApiOperation(value = "根据id获取奖项内容",notes = "根据id获取奖项内容")
-    @GetMapping(value = "/get/{id}")
+    @GetMapping(value = "/get")
     @ResponseBody
-    public Award getById(@PathVariable("id") Long id){
-        Award award = awardService.selectById(id);
-        return award;
+    public JsonResultEntity getById(@RequestParam("id") Long id){
+        JsonResultEntity resultEntity = JsonResultUtils.success(awardService.selectById(id));
+        return resultEntity;
     }
 
 
     @ApiOperation(value = "增加奖项",notes = "增加奖项")
     @PostMapping(value = "/add")
     @ResponseBody
-    public Award add(@RequestBody Award award){
-        awardService.insert(award);
-        return  award;
+    public JsonResultEntity add(@RequestBody Award award){
+        JsonResultEntity resultEntity = JsonResultUtils.success(awardService.insert(award));
+        return  resultEntity;
     }
 
     @ApiOperation(value = "更改奖项",notes = "更改奖项")
-    @PutMapping(value = "/edit")
-    @ResponseBody
-    public Award update(@RequestBody Award award){
-        awardService.updateById(award);
-        return  award;
+    @PostMapping(value = "/edit")
+    public JsonResultEntity update(@RequestBody Award award){
+        JsonResultEntity resultEntity = JsonResultUtils.success(awardService.updateById(award));
+        return  resultEntity;
     }
 
     @ApiOperation(value = "删除奖项",notes = "删除奖项")
-    @DeleteMapping(value = "/del/{id}")
-    @ResponseBody
-    public Boolean delete(@PathVariable("id") Long id){
+    @PostMapping(value = "/del")
+    public JsonResultEntity delete(@RequestParam("id") Long id){
        Boolean success =  awardService.deleteById(id);
-        return  success;
+       JsonResultEntity resultEntity = new JsonResultEntity();
+       if(success){
+           resultEntity = JsonResultUtils.success(success);
+       }
+        return  resultEntity;
     }
 
     @ApiOperation(value = "所有奖学金类型",notes = "所有奖学金类型")
@@ -84,7 +86,7 @@ public class AwardController implements Serializable{
     @PostMapping(value = "/page")
     @ResponseBody
     public JsonResultEntity page(@RequestBody CommonSearchDto<Award> searchDto) throws JSONException {
-        Page<Award> awardPage = awardService.pageWithSearch(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"id"},null));
+        Page<Award> awardPage = awardService.pageWithSearch(searchDto.getPlusPage(),searchDto.formToEntityWrapperWithSearch(new String[]{"id","bGrade"},null));
         JsonResultEntity resultEntity = JsonResultUtils.success(awardPage);
         return  resultEntity;
     }

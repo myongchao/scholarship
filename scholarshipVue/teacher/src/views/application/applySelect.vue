@@ -2,7 +2,7 @@
   <div class="header">
     <div class="components-container">
       <template>
-        <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
+        <el-form ref="form" :inline="true" :model="form" size="small" class="demo-form-inline">
           <el-form-item label="奖学金类型:" prop="awardId">
             <!-- <el-select v-model="form.departmentsId" clearable filterable placeholder="全部">
               <el-option v-for="(item,index) in departments" :key="index" :label="item.name" :value="item.id"/>

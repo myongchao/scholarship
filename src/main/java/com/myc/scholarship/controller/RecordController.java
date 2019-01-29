@@ -77,6 +77,20 @@ public class RecordController implements Serializable {
         return resultEntity;
     }
 
+    @ApiOperation(value = "教务处更新")
+    @PostMapping(value = "/editManager")
+    @ResponseBody
+    public JsonResultEntity editManager(@RequestParam("id")Long id,@RequestParam("check")String check){
+        Record record = recordService.selectById(id);
+        record.setCheck2(check);
+        Boolean success = recordService.updateById(record);
+        JsonResultEntity resultEntity = new JsonResultEntity();
+        if(success){
+            resultEntity = JsonResultUtils.success(success);
+        }
+        return resultEntity;
+    }
+
     @ApiOperation(value = "删除单个申请信息")
     @PostMapping(value = "del")
     public JsonResultEntity del(@RequestParam("id")Long id){

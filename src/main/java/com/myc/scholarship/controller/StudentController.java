@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.myc.scholarship.entity.PageDto;
 import com.myc.scholarship.entity.Student;
+import com.myc.scholarship.entity.User;
 import com.myc.scholarship.entity.dto.ImportStudentDto;
 import com.myc.scholarship.entity.dto.ListStudentDto;
 import com.myc.scholarship.entity.jsonUtil.JsonResultEntity;
 import com.myc.scholarship.entity.jsonUtil.JsonResultUtils;
 import com.myc.scholarship.mian.entity.CommonSearchDto;
 import com.myc.scholarship.service.StudentService;
+import com.myc.scholarship.service.UserService;
 import com.myc.scholarship.util.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,6 +49,9 @@ public class StudentController implements Serializable {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private UserService userService;
+
     private final static String templatePath = "/template/studentImportTemplate.xlsx";
 
     @ApiOperation(value = "学生模板下载", notes = "学生模板下载")
@@ -62,11 +67,18 @@ public class StudentController implements Serializable {
     @PostMapping(value = "/create")
     @ResponseBody
     public JsonResultEntity create(@RequestBody Student student) {
-        int num = (int)(1+Math.random()*100);
-        student.setNum(String.valueOf(num));
+        User user = new User();
+        user.setNum(student.getNum());
+        user.setCode(student.getNum());
+        user.setPwd("000000");
+        user.setName(student.getName());
+        user.setClassId(student.getClassId());
+        user.setDepId(student.getDepId());
+        user.setRole("学生");
+        Boolean b = userService.insert(user);
         Boolean success = studentService.insert(student);
         JsonResultEntity resultEntity = new JsonResultEntity();
-        if(success){
+        if(success && b){
             resultEntity = JsonResultUtils.success(success);
         }
         return resultEntity;
@@ -76,6 +88,17 @@ public class StudentController implements Serializable {
     @RequestMapping(value = "multipleAdd",method = RequestMethod.POST)
     public JsonResultEntity insertBatches(@RequestBody @Validated ListStudentDto studentDto) {
         Boolean success = studentService.insertBatch(studentDto.getData());
+        for (Student student:studentDto.getData()) {
+            User user = new User();
+            user.setNum(student.getNum());
+            user.setCode(student.getNum());
+            user.setPwd("000000");
+            user.setName(student.getName());
+            user.setClassId(student.getClassId());
+            user.setDepId(student.getDepId());
+            user.setRole("学生");
+            Boolean b = userService.insert(user);
+        }
         JsonResultEntity resultEntity = new JsonResultEntity();
         if(success){
             resultEntity = JsonResultUtils.success(success);
@@ -88,7 +111,7 @@ public class StudentController implements Serializable {
     @ResponseBody
     public JsonResultEntity upLoad(MultipartFile file){
         JsonResultEntity resultEntity = new JsonResultEntity();
-        String[] a = {"num","name","className","depName","familyAccount","familyNum","address","zipCode","inCome"};
+        String[] a = {"num","name","className","depName","teacherName","familyAccount","familyNum","address","zipCode","inCome"};
         List<String> fields = Arrays.asList(a);
         List<Map<String, Object>> mapList = null;
         try {

@@ -1,5 +1,5 @@
 <template>
-  <div class="teacher-header">
+  <div class="student-header">
     <div class="components-container">
       <template>
         <el-form ref="form" :inline="true" :model="form" size="small" class="demo-form-inline">
@@ -14,7 +14,7 @@
           </el-form-item>
           <div class="operation-button">
             <el-form-item>
-              <el-button icon="el-icon-plus" type="primary" style="height: 75%;" @click="addClassroom">添加</el-button>
+              <el-button icon="el-icon-plus" type="primary" style="height: 75%;" @click="addStudent">添加</el-button>
             </el-form-item>
             <el-form-item>
               <el-button icon="el-icon-upload2" type="primary" style="height: 75%;" @click="importClass">批量添加</el-button>
@@ -26,36 +26,41 @@
     <div class="manager">
       <el-table :data="tableData">
         <el-table-column :index="indexMethod" type="index" label="序号" align="center" width="180"/>
-        <el-table-column prop="name" align="center" label="班级名称" width="180"/>
-        <el-table-column prop="department.name" align="center" label="院系" width="180"/>
-        <el-table-column prop="places" align="center" label="名额" width="180"/>
-        <el-table-column prop="teacher.name" align="center" label="负责教师" width="180"/>
-        <el-table-column prop="teacher.contact" align="center" label="联系方式" width="190"/>
+        <el-table-column prop="num" align="center" label="学号" width="120"/>
+        <el-table-column prop="name" align="center" label="姓名" width="120"/>
+        <el-table-column prop="classroom.name" align="center" label="班级" width="120"/>
+        <el-table-column prop="dep.name" align="center" label="院系" width="120"/>
+        <el-table-column prop="teacher.name" align="center" label="辅导员" width="120"/>
+        <el-table-column prop="familyAccount" align="center" label="家庭户口" width="120"/>
+        <el-table-column prop="familyNum" align="center" label="人口" width="120"/>
+        <el-table-column prop="address" align="center" label="地址" width="120"/>
+        <el-table-column prop="zipCode" align="center" label="邮编" width="120"/>
+        <el-table-column prop="inCome" align="center" label="年收入" width="120"/>
         <el-table-column
           label="操作"
           align="center"
         >
           <template slot-scope="scope">
-            <el-button type="primary" size="small" icon="el-icon-edit" plain @click="editClassroom(scope.row.id)"/>
-            <el-button type="danger" size="small" icon="el-icon-delete" plain @click="deleteClassroom(scope.$index)"/>
+            <el-button type="primary" size="small" icon="el-icon-edit" plain @click="editStudent(scope.row.id)"/>
+            <el-button type="danger" size="small" icon="el-icon-delete" plain @click="deleteStudent(scope.$index)"/>
           </template>
         </el-table-column>
       </el-table>
       <page :page="form.page" @changed="getList"/>
-      <edit-classroom ref="edit" @success="getList"/>
+      <edit-student ref="edit" @success="getList"/>
     </div>
   </div>
 </template>
 
 <script>
 import page from '@/components/page'
-import editClassroom from './components/editClassroom'
-import {
-  pageClass, deleteClassroom } from '@/api/class'
+import editStudent from './components/editStudent'
+import { searchPage, deleteStudent
+} from '@/api/student'
 export default {
   components: {
     page,
-    editClassroom
+    editStudent
   },
   data() {
     return {
@@ -70,8 +75,7 @@ export default {
         orderBy: 'id desc'
       },
       loading: false, // 加载
-      tableData: [],
-      searchParams: {}
+      tableData: []
     }
   },
   created() {
@@ -79,31 +83,25 @@ export default {
   },
   methods: {
     getList() {
-      this.searchParams.page = this.form.page
-      if (this.form.name !== null) {
-        this.searchParams.form = {
-          name: this.form.name
-        }
-      }
-      pageClass(this.searchParams).then(e => {
+      searchPage(this.form).then(e => {
         const data = e.data.records
         this.form.page.total = e.data.total
         this.tableData = data
       })
     },
-    editClassroom(id) {
+    editStudent(id) {
       this.$refs.edit.open(id)
     },
-    addClassroom() {
-      this.$router.push('addClassroom')
+    addStudent() {
+      this.$router.push('addStudent')
     },
-    deleteClassroom(index) {
+    deleteStudent(index) {
       this.$confirm('很重要的信息，你确定删除吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(_ => {
-        deleteClassroom(this.tableData[index].id).then(e => {
+        deleteStudent(this.tableData[index].id).then(e => {
           if (e.success) {
             this.getList()
             this.form.page.total--
@@ -134,13 +132,16 @@ export default {
 </script>
 
 <style scoped>
-   .teacher-header{
+  .student-header{
        margin-top: 15px;
+   }
+   .manager-page{
+     background-color: #E4E7ED;
    }
   .components-container{
     margin-left: 10px;
   }
-    .manager{
+  .manager{
        border: 1px solid seashell;
        margin: 15px;
        text-align: center
@@ -148,8 +149,8 @@ export default {
     .el-input {
     width: 100%;
    }
-    .operation-button{
-      float:right
-    }
+ .operation-button{
+   float: right;
+ }
 </style>
 

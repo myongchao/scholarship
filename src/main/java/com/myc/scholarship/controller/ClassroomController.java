@@ -52,7 +52,7 @@ public class ClassroomController {
     }
 
     @ApiOperation(value = "添加班级信息")
-    @GetMapping(value = "add")
+    @PostMapping(value = "add")
     public JsonResultEntity add(@RequestBody Classroom classroom){
         JsonResultEntity resultEntity = JsonResultUtils.success(service.insert(classroom));
         return resultEntity;

@@ -2,7 +2,7 @@
   <div class="header">
     <div class="components-container">
       <template>
-        <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
+        <el-form ref="form" :inline="true" :model="form" size="small" class="demo-form-inline">
           <el-form-item label="学生姓名:" prop="name">
             <el-input v-model="form.name" placeholder="输入名字"/>
           </el-form-item>
@@ -31,8 +31,8 @@
           align="center"
         >
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" plain @click="editGrade(scope.row.id)"/>
-            <el-button type="danger" icon="el-icon-delete" plain @click="deleteGrade(scope.$index)"/>
+            <el-button type="primary" size="small" icon="el-icon-edit" plain @click="editGrade(scope.row.id)"/>
+            <el-button type="danger" size="small" icon="el-icon-delete" plain @click="deleteGrade(scope.$index)"/>
           </template>
         </el-table-column>
       </el-table>

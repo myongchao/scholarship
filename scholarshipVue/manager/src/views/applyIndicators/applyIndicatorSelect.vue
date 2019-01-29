@@ -2,11 +2,8 @@
   <div class="tree">
     <div class="components-container">
       <template>
-        <el-form ref="form" :inline="true" :model="form" class="demo-form-inline">
+        <el-form ref="form" :inline="true" :model="form" size="small" class="demo-form-inline">
           <el-form-item label="奖学金类型:" prop="awardId">
-            <!-- <el-select v-model="form.departmentsId" clearable filterable placeholder="全部">
-              <el-option v-for="(item,index) in departments" :key="index" :label="item.name" :value="item.id"/>
-            </el-select> -->
             <el-select v-model="form.awardId" placeholder="全部" style="height: 20px;">
               <el-option
                 v-for="(item,index) in awards"
@@ -15,38 +12,60 @@
                 :value="item.id"/>
             </el-select>
           </el-form-item>
+          <el-form-item label="奖学金级别:" prop="bgrade">
+            <el-select v-model="form.bgrade" placeholder="全部" style="height: 20px;">
+              <el-option
+                v-for="(item,index) in awards"
+                :key="index"
+                :label="item.bgrade"
+                :value="item.bgrade"/>
+            </el-select>
+          </el-form-item>
           <el-form-item>
             <el-button icon="el-icon-search" type="primary" style="height: 75%;" @click="getList()">搜索</el-button>
+            <el-button icon="el-icon-search" type="primary" style="height: 75%;" @click="resetForm('form')">重置</el-button>
           </el-form-item>
         </el-form>
-        <!-- <el-button slot="append" type="primary" icon="el-icon-search" style="height: 75%;" >搜索</el-button> -->
       </template>
     </div>
     <div class="indicator">
       <el-table :data="tableData" :key="index">
-        <el-table-column :index="indexMethod" type="index" align="center" width="190"/>
-        <el-table-column prop="title" align="center" label="奖学金名称" width="190"/>
-        <el-table-column prop="bgrade" align="center" label="奖学金级别" width="190"/>
-        <el-table-column prop="amount" align="center" label="奖学金金额" width="190"/>
-        <el-table-column prop="minScore" align="center" label="最低成绩" width="190"/>
-        <el-table-column prop="subjectScore" align="center" label="最低学分" width="190"/>
-        <el-table-column prop="rank" align="center" label="班级最低排名" width="190"/>
-        <el-table-column prop="status" align="center" label="挂科要求" width="190"/>
+        <el-table-column :index="indexMethod" type="index" align="center" width="160"/>
+        <el-table-column prop="title" align="center" label="奖学金名称" width="160"/>
+        <el-table-column prop="bgrade" align="center" label="奖学金级别" width="160"/>
+        <el-table-column prop="amount" align="center" label="奖学金金额" width="160"/>
+        <el-table-column prop="minScore" align="center" label="最低成绩" width="160"/>
+        <el-table-column prop="subjectScore" align="center" label="最低学分" width="160"/>
+        <el-table-column prop="rank" align="center" label="班级最低排名" width="160"/>
+        <el-table-column prop="status" align="center" label="挂科要求" width="160"/>
+        <el-table-column
+          label="操作"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <el-button type="primary" size="small" icon="el-icon-edit" plain @click="editApply(scope.row.id)"/>
+            <el-button type="danger" size="small" icon="el-icon-delete" plain @click="deleteAward(scope.$index)"/>
+          </template>
+        </el-table-column>
       </el-table>
       <page :page="form.page" @changed="getList"/>
     </div>
+    <edit-apply ref="edit" @success="getList"/>
   </div>
 </template>
 
 <script>
 import page from '@/components/page'
+import editApply from './components/editApply'
 import {
   awardList,
-  searchPage
+  searchPage,
+  deleteAward
 } from '@/api/award'
 export default {
   components: {
-    page
+    page,
+    editApply
   },
   data() {
     return {
@@ -77,6 +96,17 @@ export default {
           id: this.form.awardId
         }
       }
+      if (this.form.bgrade !== null) {
+        this.searchParams.form = {
+          bgrade: this.form.bgrade
+        }
+      }
+      if (this.form.awardId !== null && this.form.bgrade !== null) {
+        this.searchParams.form = {
+          id: this.form.awardId,
+          bgrade: this.form.bgrade
+        }
+      }
       // 分页
       searchPage(this.searchParams).then(e => {
         const data = e.data.records
@@ -87,6 +117,40 @@ export default {
       awardList().then(e => {
         this.awards = e.data
       })
+    },
+    editApply(id) {
+      this.$refs.edit.open(id)
+    },
+    deleteAward(index) {
+      this.$confirm('很重要的信息，你确定删除吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(_ => {
+        deleteAward(this.tableData[index].id).then(e => {
+          if (e.success) {
+            this.getList()
+            this.form.page.total--
+            this.$message({
+              type: 'success',
+              message: '删除成功！'
+            })
+          } else {
+            this.$message({
+              type: 'error',
+              message: '删除失败！'
+            })
+          }
+        })
+      }).catch(_ => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
     },
     indexMethod(index) {
       return index + 1 + this.form.page.pageCount * (this.form.page.current - 1)

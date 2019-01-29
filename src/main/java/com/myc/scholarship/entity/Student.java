@@ -41,15 +41,9 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
      */
     @TableField("class_id")
     private Long classId;
-    /**
-     * 层次
-     */
-    private String level;
-    /**
-     * 状态
-     */
-    @TableField("stuState")
-    private String stuState;
+
+    @TableField("teacher_id")
+    private Long teacherId;
     /**
      * 家庭户口
      */
@@ -74,11 +68,7 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
      */
     @TableField("inCome")
     private String inCome;
-    /**
-     * 收入来源
-     */
-    @TableField("inComeFrom")
-    private String inComeFrom;
+
 
     @TableField(exist = false)
     private Classroom classroom;
@@ -88,7 +78,9 @@ public class Student extends FullAuditedEntity<Student,Long> implements Serializ
     private String className;
     @TableField(exist = false)
     private String depName;
-//    @TableField(exist = false)
-//    private List<Score> listScore;
+    @TableField(exist = false)
+    private Teacher teacher;
+    @TableField(exist = false)
+    private String teacherName;
 
 }

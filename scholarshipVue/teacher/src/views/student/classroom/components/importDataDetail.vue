@@ -43,6 +43,11 @@
           align="center"
         />
         <el-table-column
+          prop="teacherName"
+          label="辅导员"
+          align="center"
+        />
+        <el-table-column
           prop="familyAccount"
           label="家庭户口"
           align="center"

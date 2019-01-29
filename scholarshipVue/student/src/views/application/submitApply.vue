@@ -159,6 +159,7 @@ export default {
                 type: 'success',
                 message: '提交申请成功！'
               })
+              this.$refs.form.resetFields()
             } else if (e.success && e.data !== '') {
               this.$message({
                 type: 'error',
