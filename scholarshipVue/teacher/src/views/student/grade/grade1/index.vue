@@ -12,6 +12,14 @@
           <el-form-item>
             <el-button icon="el-icon-refresh" type="primary" style="height: 75%;" @click="resetForm('form')">重置</el-button>
           </el-form-item>
+          <div class="operation-button">
+            <el-form-item>
+              <el-button icon="el-icon-plus" type="primary" style="height: 75%;" @click="addClass">添加</el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-button icon="el-icon-upload2" type="primary" style="height: 75%;" @click="importClass">批量添加</el-button>
+            </el-form-item>
+          </div>
         </el-form>
       </template>
     </div>
@@ -153,12 +161,7 @@ export default {
        margin: 10px;
        text-align: center;
     }
-    .edit-input {
-       padding-right: 80px;
-    }
-    .cancel-btn {
-      position: absolute;
-      right: 15px;
-      top: 14px;
+    .operation-button{
+      float: right;
     }
 </style>

@@ -69,12 +69,21 @@ public class Record extends FullAuditedEntity<Record,Long> implements Serializab
     private Award award;
 
     @TableField(exist = false)
+    private String awardName;
+
+    @TableField(exist = false)
     private Score score;
 
     @TableField(exist = false)
     private Classroom classroom;
 
     @TableField(exist = false)
+    private String className;
+
+    @TableField(exist = false)
     private Department department;
+
+    @TableField(exist = false)
+    private String depName;
 
 }

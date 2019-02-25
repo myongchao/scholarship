@@ -43,7 +43,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/teacher/teacherManager',
     name: 'teacher',
-    meta: { title: '教师用户管理', icon: 'form' },
+    meta: { title: '教师用户管理', icon: 'jiaoshi' },
     children: [
       {
         path: 'teacherManager',
@@ -71,7 +71,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/classroom/classroomManager',
     name: 'classroom',
-    meta: { title: '班级信息管理', icon: 'form' },
+    meta: { title: '班级信息管理', icon: 'banji' },
     children: [
       {
         path: 'classroomManager',
@@ -99,7 +99,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/student/studentManager',
     name: 'student',
-    meta: { title: '学生信息管理', icon: 'form' },
+    meta: { title: '学生信息管理', icon: 'xueyuandangan' },
     children: [
       {
         path: 'studentManager',
@@ -176,7 +176,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/applyIndicators',
     name: 'applyIndicators',
-    meta: { title: '申请指标管理', icon: 'example' },
+    meta: { title: '申请指标管理', icon: 'buke' },
     children: [
       {
         path: 'applyIndicatorManager',
@@ -204,7 +204,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/application/applyManager',
     name: 'application',
-    meta: { title: '申请信息管理', icon: 'form' },
+    meta: { title: '申请信息管理', icon: 'yaoqing' },
     children: [
       {
         path: 'applyManager',
@@ -222,7 +222,7 @@ export const constantRouterMap = [
         path: 'applyCount',
         name: 'ApplyCount',
         component: () => import('@/views/application/applyCount'),
-        meta: { title: '申请信息统计', icon: 'form' }
+        meta: { title: '申请信息统计', icon: 'tongji' }
       }
     ]
   },
@@ -232,7 +232,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/personal',
     name: 'personal',
-    meta: { title: '个人信息管理', icon: 'form' },
+    meta: { title: '个人信息管理', icon: 'gerenxinxi' },
     children: [{
       path: 'userInfo',
       name: 'userInfo',

@@ -205,9 +205,6 @@ export default {
 </script>
 
 <style  scoped>
-  body{
-    background-color: #E4E7ED;
-  }
   .header{
     margin-top: 10px;
   }

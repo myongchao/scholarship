@@ -30,7 +30,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    margin: 10px;
   }
   &-text {
     font-size: 30px;
@@ -43,4 +43,8 @@ img{
       width: 70%;
       height: 300px;
     }
+  *{
+    background-color: #fff;
+    height: 800px;;
+}
 </style>
